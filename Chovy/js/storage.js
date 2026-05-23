@@ -211,7 +211,12 @@ const ChovyStorage = (() => {
     } catch (e) {
       console.error('Failed to parse face profile:', e);
     }
-    return null;
+    return {
+      skin_tone: 'natural',
+      skin_type: 'combination',
+      style_pref: 'daily',
+      undertone: 'neutral'
+    };
   }
 
   function clearFaceProfile() {

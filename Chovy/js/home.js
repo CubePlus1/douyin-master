@@ -148,7 +148,7 @@ const ChovyHome = (() => {
   function startAnalysis(videoId, sourceUrl) {
     ChovyAppState.set('currentVideoId', videoId);
     ChovyAppState.set('sourceUrl', sourceUrl || '');
-    ChovyRouter.navigate('/face');
+    ChovyRouter.navigate('/thinking');
   }
 
   function formatTime(timestamp) {

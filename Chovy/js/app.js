@@ -29,9 +29,7 @@ const ChovyAppState = (() => {
     ChovyHome.renderHistory();
   });
 
-  ChovyRouter.register('/face', () => {
-    ChovyFace.showFaceView();
-  });
+
 
   ChovyRouter.register('/thinking', () => {
     const videoId = ChovyAppState.get('currentVideoId');
@@ -60,7 +58,7 @@ const ChovyAppState = (() => {
 
   // Initialize all modules
   ChovyHome.init();
-  ChovyFace.init();
+
   ChovyThinking.init();
   ChovyArena.init();
   ChovyResult.init();

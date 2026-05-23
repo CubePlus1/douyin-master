@@ -46,7 +46,7 @@ const ChovyRouter = (() => {
     // Show/hide tab bar (hide during arena)
     const tabBar = document.getElementById('tabBar');
     if (tabBar) {
-      tabBar.style.display = (viewId === 'arena' || viewId === 'thinking' || viewId === 'face') ? 'none' : '';
+      tabBar.style.display = (viewId === 'arena' || viewId === 'thinking') ? 'none' : '';
     }
 
     // Scroll phone content to top on view change
