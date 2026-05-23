@@ -24,14 +24,7 @@ const routes: RouteRecordRaw[] = [
     path: '/shop/detail',
     component: () => import('@/pages/shop/GoodsDetail.vue')
   },
-  {
-    path: '/shop/debate',
-    component: () => import('@/pages/shop/BuyDebate.vue')
-  },
-  {
-    path: '/shop/debate/result',
-    component: () => import('@/pages/shop/BuyDebateResult.vue')
-  },
+
 
   { path: '/me', component: () => import('@/pages/me/Me.vue') },
   {

@@ -134,7 +134,7 @@
           <span>商品评论(507)</span>
           <Icon class="arrow" icon="mingcute:right-line" />
         </header>
-        <div class="debate-entry" @click="nav('/shop/debate')">
+        <div class="debate-entry" @click="goDebate">
           <div class="left">
             <b>买前辩论场</b>
             <span>评价分歧较大，让商品先吵一架再买</span>
@@ -377,6 +377,10 @@ const store = useBaseStore()
 let page = ref()
 let header = ref()
 let headerShadow = ref()
+
+function goDebate() {
+  window.location.href = 'http://localhost:5000'
+}
 
 function scroll() {
   let d = page.value.scrollTop / 200

@@ -11,6 +11,7 @@
   >
       <div class="video-share">
         <div class="shares">
+
         <to-share item-type="debate" @click="goDebate" />
         <to-share
           item-type="weChat"
@@ -292,10 +293,11 @@ export default {
       }
       this.isCollect = !this.isCollect
     },
+
     goDebate() {
       this.closeShare()
       setTimeout(() => {
-        this.$router.push('/shop/debate')
+        window.location.href = 'http://localhost:5000'
       }, 180)
     },
     toggleCall(item) {

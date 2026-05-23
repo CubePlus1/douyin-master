@@ -60,6 +60,7 @@
 
           <div class="shares list" v-else>
             <template v-if="mode === 'video'">
+
               <div class="option" @click.stop="openEntry">
                 <div class="entry-icon-wrap">
                   <img class="entry-icon-img" src="/assets/img/icon/components/video/daodun.jpg" alt="刀盾入口" />
@@ -221,11 +222,13 @@ const emit = defineEmits([
   'play-feedback'
 ])
 
+
+
 function openEntry() {
   closeShare()
   emit('update:modelValue', false)
   setTimeout(() => {
-    router.push('/shop/debate')
+    window.location.href = 'http://localhost:5000'
   }, 180)
 }
 

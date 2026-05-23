@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- SEO Optimization -->
+  <title>化妆品三界大乱斗 - 640px 手机端交互动画竞技场</title>
+  <meta name="description" content="贵妇尊贵面霜、成分党原料桶精华与平价大碗性价比芦荟胶的终极互怼辩论赛！包含炫酷的 CSS 弹性气泡动画、分贝计和纯 Web Audio API 合成的复古 8-bit 音效。">
+  <meta name="keywords" content="化妆品吵架, 贵妇面霜, 成分党, 性价比芦荟胶, 前端动效, CSS 动画, Web Audio API, H5 动画, 640px 手机适配">
+  <meta name="author" content="Antigravity">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+
+  <!-- Core CSS File -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Desktop Bezel Wrapper (Showcases beautiful mobile viewport on Desktop) -->
+  <div class="desktop-phone-frame">
+    <div class="phone-notch"></div>
+    <div class="phone-speaker"></div>
+
+    <!-- Main H5 App Container (Strictly 640px Responsive) -->
+    <main id="app-container" class="app-container">
+      
+      <!-- Top Neon Title Header -->
+      <header class="header">
+        <div class="neon-title-group">
+          <h1 id="main-title" class="neon-title">BEAUTY BATTLE</h1>
+          <span class="neon-subtitle">化妆品互怼大乱斗 💢</span>
+        </div>
+        
+        <!-- Live Decibel Meter -->
+        <div class="decibel-container" aria-label="吵架分贝仪">
+          <span class="decibel-label">DECIBELS / 吵架分贝</span>
+          <div class="decibel-meter-wrapper">
+            <div id="decibel-meter" class="decibel-meter">
+              <div class="meter-bar bar-1"></div>
+              <div class="meter-bar bar-2"></div>
+              <div class="meter-bar bar-3"></div>
+              <div class="meter-bar bar-4"></div>
+              <div class="meter-bar bar-5"></div>
+              <div class="meter-bar bar-6"></div>
+              <div class="meter-bar bar-7"></div>
+              <div class="meter-bar bar-8"></div>
+              <div class="meter-bar bar-9"></div>
+              <div class="meter-bar bar-10"></div>
+            </div>
+            <span id="decibel-value" class="decibel-value">45 dB</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Comic Stage Panel -->
+      <section class="comic-stage" id="comic-stage">
+        
+        <!-- Background Speed Lines (Triggers during angry/crit attacks) -->
+        <div id="speed-lines" class="speed-lines"></div>
+        <div id="flash-overlay" class="flash-overlay"></div>
+
+        <!-- 👑 Row 1 (Top): Luxury Cream (贵妇小奢) -->
+        <div id="card-luxury" class="character-card state-idle" data-pm="luxury">
+          <div class="avatar-container glow-luxury">
+            <img src="assets/avatar_luxury.png" alt="贵妇小奢 尊贵面霜" class="avatar-img">
+            <div class="expression-badge badge-luxury">👑 贵妇小奢</div>
+            <div class="sweat-droplets">💦</div>
+          </div>
+          <div class="details-panel">
+            <div class="name-bar">
+              <span class="char-name">贵妇小奢 / Luxury Cream</span>
+              <span id="hp-luxury" class="hp-percent">HP 100%</span>
+            </div>
+            <div class="bar-outer">
+              <div id="bar-fill-luxury" class="bar-fill bg-luxury" style="width: 100%;"></div>
+            </div>
+          </div>
+          <!-- Bouncy Speech Bubble -->
+          <div id="bubble-luxury" class="speech-bubble bubble-left hide-bubble">
+            <div class="bubble-content">神奇活性精萃注入中...</div>
+            <div class="bubble-arrow"></div>
+          </div>
+        </div>
+
+        <!-- 🧪 Row 2 (Middle): Scientific Serum (成分大仙) -->
+        <div id="card-science" class="character-card state-idle card-reverse" data-pm="science">
+          <div class="avatar-container glow-science">
+            <img src="assets/avatar_science.png" alt="成分大仙 原料桶精华" class="avatar-img">
+            <div class="expression-badge badge-science">🧪 成分大仙</div>
+            <div class="sweat-droplets">💦</div>
+          </div>
+          <div class="details-panel">
+            <div class="name-bar">
+              <span class="char-name">成分大仙 / Scientific Serum</span>
+              <span id="hp-science" class="hp-percent">HP 100%</span>
+            </div>
+            <div class="bar-outer">
+              <div id="bar-fill-science" class="bar-fill bg-science" style="width: 100%;"></div>
+            </div>
+          </div>
+          <!-- Bouncy Speech Bubble -->
+          <div id="bubble-science" class="speech-bubble bubble-right hide-bubble">
+            <div class="bubble-content">正在对齐双盲实验配方...</div>
+            <div class="bubble-arrow"></div>
+          </div>
+        </div>
+
+        <!-- 🥔 Row 3 (Bottom): Budget Gel (性价比战神) -->
+        <div id="card-budget" class="character-card state-idle" data-pm="budget">
+          <div class="avatar-container glow-budget">
+            <img src="assets/avatar_budget.png" alt="性价比战神 平价大碗" class="avatar-img">
+            <div class="expression-badge badge-budget">🥔 性价比战神</div>
+            <div class="sweat-droplets">💦</div>
+          </div>
+          <div class="details-panel">
+            <div class="name-bar">
+              <span class="char-name">性价比战神 / Budget Gel</span>
+              <span id="hp-budget" class="hp-percent">HP 100%</span>
+            </div>
+            <div class="bar-outer">
+              <div id="bar-fill-budget" class="bar-fill bg-budget" style="width: 100%;"></div>
+            </div>
+          </div>
+          <!-- Bouncy Speech Bubble -->
+          <div id="bubble-budget" class="speech-bubble bubble-left hide-bubble">
+            <div class="bubble-content">九块九大碗，全身涂抹中！</div>
+            <div class="bubble-arrow"></div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- Combat Log Terminal -->
+      <section class="log-section">
+        <div class="log-header">
+          <span>💬 BATTLE LOG / 吵架弹幕日志</span>
+          <span class="live-blink">LIVE</span>
+        </div>
+        <div id="combat-log" class="combat-log">
+          <div class="log-entry system-msg">>> 战斗准备就绪。点击下方“开始乱斗”触发自动吵架，或者手动点击大招互怼！</div>
+        </div>
+      </section>
+
+      <!-- Resource Tug-of-War (Consumer Wallet Allocation) -->
+      <section class="resource-section">
+        <div class="resource-header">
+          <span>💼 CONSUMER BUDGET / 消费者钱包预算争夺</span>
+          <span id="budget-winner" class="winner-tag">均势对峙中</span>
+        </div>
+        <div class="tug-bar-outer">
+          <div id="tug-luxury" class="tug-segment bg-luxury" style="width: 33.3%;"></div>
+          <div id="tug-science" class="tug-segment bg-science" style="width: 33.3%;"></div>
+          <div id="tug-budget" class="tug-segment bg-budget" style="width: 33.4%;"></div>
+        </div>
+      </section>
+
+      <!-- Floating Particles Container -->
+      <div id="particle-container" class="particle-container"></div>
+
+      <!-- Action Panel & Control Buttons -->
+      <footer class="controls-footer">
+        
+        <!-- Mode Toggles -->
+        <div class="mode-toggles">
+          <button id="btn-story" class="btn-mode active-mode">
+            <span class="btn-icon">🎬</span> 剧情播放
+          </button>
+          <button id="btn-free" class="btn-mode">
+            <span class="btn-icon">⚡</span> 自由互怼
+          </button>
+          <button id="btn-boss" class="btn-boss-panic">
+            <span class="btn-icon">👩‍🦰</span> 消费者来了！
+          </button>
+        </div>
+
+        <!-- Custom Manual Skills (Active when Free Rant is selected) -->
+        <div id="skills-deck" class="skills-deck inactive-skills">
+          <div class="skill-group luxury-skills">
+            <button class="skill-btn bg-luxury-btn" data-pm="luxury" data-skill="essence">神奇精萃</button>
+            <button class="skill-btn bg-luxury-btn" data-pm="luxury" data-skill="glorious">贵妇光环</button>
+          </div>
+          <div class="skill-group science-skills">
+            <button class="skill-btn bg-science-btn" data-pm="science" data-skill="retinol">视黄醇爆击</button>
+            <button class="skill-btn bg-science-btn" data-pm="science" data-skill="clinical">学术双盲</button>
+          </div>
+          <div class="skill-group budget-skills">
+            <button class="skill-btn bg-budget-btn" data-pm="budget" data-skill="shipping">9.9包邮</button>
+            <button class="skill-btn bg-budget-btn" data-pm="budget" data-skill="allover">全身涂抹</button>
+          </div>
+        </div>
+      </footer>
+
+    </main>
+  </div>
+
+  <!-- Audio Context Activation Modal -->
+  <div id="audio-modal" class="audio-modal">
+    <div class="modal-card">
+      <div class="modal-emoji">🏺</div>
+      <h2>化妆品三界大作战</h2>
+      <p>为了获得最震撼的 8-bit 复古电子吵架音效与全屏震感，请点击下方按钮开启乱斗音频合成器！</p>
+      <button id="btn-enter" class="btn-enter">授权音频 & 进入战场</button>
+    </div>
+  </div>
+
+  <!-- Core JavaScript Logic -->
+  <script src="app.js"></script>
+</body>
+</html>
