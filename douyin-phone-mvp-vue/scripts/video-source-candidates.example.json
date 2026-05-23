@@ -1,0 +1,107 @@
+{
+  "videos": [
+    {
+      "id": "authorized-foundation-review-001",
+      "fixedSecond": true,
+      "category": "beauty",
+      "description": "油皮粉底液实测：通勤 8 小时持妆、遮瑕和暗沉对比 #粉底液 #美妆测评 #油皮底妆",
+      "videoUrl": "/videos/authorized-foundation-review-001.mp4",
+      "coverUrl": "/covers/authorized-foundation-review-001.jpg",
+      "width": 1080,
+      "height": 1920,
+      "durationMs": 25843,
+      "author": {
+        "uid": "beauty-up-001",
+        "nickname": "底妆实测室",
+        "signature": "粉底液实测｜油皮持妆｜遮瑕暗沉对比"
+      },
+      "musicTitle": "粉底液通勤测试原声",
+      "tags": ["粉底液", "美妆测评", "油皮底妆"],
+      "searchWords": ["油皮粉底液推荐", "粉底液实测", "持妆粉底液"]
+    },
+    {
+      "id": "authorized-beauty-002",
+      "category": "beauty",
+      "description": "秋冬底妆服帖技巧：保湿、遮瑕、定妆三步走 #底妆 #美妆技巧",
+      "videoUrl": "/videos/authorized-beauty-002.mp4",
+      "coverUrl": "/covers/authorized-beauty-002.jpg",
+      "width": 1080,
+      "height": 1920,
+      "durationMs": 21000,
+      "author": { "uid": "beauty-up-002", "nickname": "妆前观察员" },
+      "tags": ["底妆", "美妆技巧"]
+    },
+    {
+      "id": "authorized-beauty-003",
+      "category": "beauty",
+      "description": "新手通勤妆：三分钟快速出门 #美妆 #通勤妆",
+      "videoUrl": "/videos/authorized-beauty-003.mp4",
+      "coverUrl": "/covers/authorized-beauty-003.jpg",
+      "width": 1080,
+      "height": 1920,
+      "durationMs": 18000,
+      "author": { "uid": "beauty-up-003", "nickname": "早八化妆台" },
+      "tags": ["美妆", "通勤妆"]
+    },
+    {
+      "id": "authorized-lifestyle-004",
+      "category": "lifestyle",
+      "description": "城市夜景慢镜头 #城市 #生活记录",
+      "videoUrl": "/videos/authorized-lifestyle-004.mp4",
+      "coverUrl": "/covers/authorized-lifestyle-004.jpg",
+      "width": 1080,
+      "height": 1920,
+      "durationMs": 16000,
+      "author": { "uid": "creator-004", "nickname": "授权素材库" },
+      "tags": ["城市", "生活记录"]
+    },
+    {
+      "id": "authorized-food-005",
+      "category": "food",
+      "description": "街角咖啡和早餐记录 #美食 #生活",
+      "videoUrl": "/videos/authorized-food-005.mp4",
+      "coverUrl": "/covers/authorized-food-005.jpg",
+      "width": 1080,
+      "height": 1920,
+      "durationMs": 24000,
+      "author": { "uid": "creator-005", "nickname": "早餐研究所" },
+      "tags": ["美食", "生活"]
+    },
+    {
+      "id": "authorized-travel-006",
+      "category": "travel",
+      "description": "海边落日散步片段 #旅行 #治愈",
+      "videoUrl": "/videos/authorized-travel-006.mp4",
+      "coverUrl": "/covers/authorized-travel-006.jpg",
+      "width": 1080,
+      "height": 1920,
+      "durationMs": 30000,
+      "author": { "uid": "creator-006", "nickname": "旅行胶片" },
+      "tags": ["旅行", "治愈"]
+    },
+    {
+      "id": "authorized-fitness-007",
+      "category": "fitness",
+      "description": "居家拉伸 5 个动作 #健身 #拉伸",
+      "videoUrl": "/videos/authorized-fitness-007.mp4",
+      "coverUrl": "/covers/authorized-fitness-007.jpg",
+      "width": 1080,
+      "height": 1920,
+      "durationMs": 28000,
+      "author": { "uid": "creator-007", "nickname": "轻运动日记" },
+      "tags": ["健身", "拉伸"]
+    },
+    {
+      "id": "authorized-pet-008",
+      "category": "pet",
+      "description": "猫咪午后打盹 #萌宠 #猫咪",
+      "videoUrl": "/videos/authorized-pet-008.mp4",
+      "coverUrl": "/covers/authorized-pet-008.jpg",
+      "width": 1080,
+      "height": 1920,
+      "durationMs": 15000,
+      "author": { "uid": "creator-008", "nickname": "猫咪放映厅" },
+      "tags": ["萌宠", "猫咪"]
+    }
+  ]
+}

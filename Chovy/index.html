@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Chovy - 从种草到决策</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles-premium.css">
+  <link rel="stylesheet" href="css/chovy-premium-adapter.css">
+</head>
+<body>
+
+  <div class="phone-frame">
+    <!-- iPhone iOS-style top header bar -->
+    <div class="phone-header-bar">
+      <div class="phone-time" id="phoneTime">09:41</div>
+      <div class="phone-notch"></div>
+      <div class="phone-status-icons">
+        <span class="material-icons-outlined" style="font-size: 11px;">signal_cellular_alt</span>
+        <span class="material-icons-outlined" style="font-size: 11px;">wifi</span>
+        <span class="material-icons-outlined" style="font-size: 12px;">battery_full</span>
+      </div>
+    </div>
+
+    <div class="phone-screen">
+
+      <div class="phone-content">
+
+      <!-- View: Home -->
+      <div class="view" id="view-home">
+        <div class="view-inner">
+          <div class="home-header">
+            <h1 class="home-logo">CHOVY</h1>
+            <p class="home-subtitle">粘贴抖音链接，AI帮你选</p>
+          </div>
+          <div class="category-pills" id="categoryPills">
+            <button class="cat-pill cat-pill-active" data-category="lipstick">口红</button>
+            <button class="cat-pill" data-category="foundation">粉底液</button>
+          </div>
+          <div class="link-input-box">
+            <input type="text" id="linkInput" placeholder="粘贴抖音视频链接..." autocomplete="off">
+            <button class="link-submit-btn" id="linkSubmitBtn">开始分析</button>
+          </div>
+          <div class="quick-entry">
+            <p class="quick-label">或者试试这些</p>
+            <div id="videoQuickList" class="quick-list"></div>
+          </div>
+          <div class="history-section" id="historySection" style="display:none">
+            <p class="section-label">最近会话</p>
+            <div id="historyList" class="history-list"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- View: Face Analysis -->
+      <div class="view" id="view-face">
+        <div class="view-inner" id="faceContent">
+          <!-- Face analysis content rendered by JS -->
+        </div>
+      </div>
+
+      <!-- View: Thinking -->
+      <div class="view" id="view-thinking">
+        <div class="view-inner">
+          <div class="thinking-header">
+            <div class="thinking-avatar"><span class="material-icons-outlined">smart_toy</span></div>
+            <div class="thinking-title">Chovy AI 分析中</div>
+          </div>
+          <div class="chat-container" id="chatContainer">
+            <!-- Chat bubbles rendered by JS -->
+          </div>
+        </div>
+      </div>
+
+      <!-- View: Arena (DM Group Chat) -->
+      <div class="view" id="view-arena">
+        <div class="view-inner" style="position:relative;">
+          <div class="pref-icon" id="prefIcon" style="display:none">
+            <span class="material-icons-outlined">psychology</span>
+          </div>
+          <div class="pref-panel" id="prefPanel" style="display:none"></div>
+          <div class="arena-header">
+            <div class="arena-round-label" id="arenaRoundLabel">选手就位</div>
+            <div class="arena-progress" id="arenaProgress">
+              <div class="arena-dot current"></div>
+              <div class="arena-dot"></div>
+              <div class="arena-dot"></div>
+            </div>
+          </div>
+          <div class="chat-group" id="chatGroup">
+            <!-- Group chat messages rendered by JS -->
+          </div>
+        </div>
+      </div>
+
+      <!-- View: Result -->
+      <div class="view" id="view-result">
+        <div class="view-inner">
+          <div class="result-crown">
+            <div class="crown-icon"><span class="material-icons-outlined">emoji_events</span></div>
+            <h2 class="result-title">冠军诞生</h2>
+          </div>
+          <div class="champion-card" id="championCard">
+            <!-- Champion rendered by JS -->
+          </div>
+          <div class="reason-section" id="reasonSection">
+            <!-- Reasons rendered by JS -->
+          </div>
+          <div class="recap-section" id="recapSection">
+            <h3 class="section-heading">战报回顾</h3>
+            <div id="recapList"></div>
+          </div>
+          <div class="result-actions">
+            <button class="btn-primary" id="replayBtn">再来一局</button>
+            <button class="btn-secondary" id="goProfileBtn">查看我的画像</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- View: Discover -->
+      <div class="view" id="view-discover">
+        <div class="view-inner">
+          <div class="discover-header">
+            <h2 class="discover-title">发现</h2>
+            <p class="discover-subtitle">看看大家都在选什么</p>
+          </div>
+          <div class="demo-entry" id="demoEntry">
+            <div class="demo-card" id="demoCard">
+              <div class="demo-icon"><span class="material-icons-outlined">play_circle</span></div>
+              <div class="demo-text">
+                <div class="demo-label">试试看</div>
+                <div class="demo-desc">用示例视频体验完整流程</div>
+              </div>
+              <div class="demo-arrow"><span class="material-icons-outlined">arrow_forward</span></div>
+            </div>
+          </div>
+          <div class="trending-section">
+            <h3 class="section-heading">热门推荐</h3>
+            <div id="trendingList" class="trending-list"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- View: Profile -->
+      <div class="view" id="view-my">
+        <div class="view-inner">
+          <div class="profile-header">
+            <div class="profile-avatar-wrap"><span class="material-icons-outlined">person</span></div>
+            <h2 class="profile-username">抖音极简生活家</h2>
+            <p class="profile-id">ID: chovy_user</p>
+            <div class="tag-cloud" id="profileTagCloud">
+              <!-- Personalized Tags like "成分挑剔官" -->
+            </div>
+            <div class="profile-stats">
+              <div class="profile-stat">
+                <div class="profile-stat-num" id="statSessions">0</div>
+                <div class="profile-stat-label">会话</div>
+              </div>
+              <div class="profile-stat">
+                <div class="profile-stat-num" id="statChoices">0</div>
+                <div class="profile-stat-label">选择</div>
+              </div>
+              <div class="profile-stat">
+                <div class="profile-stat-num" id="statChampions">0</div>
+                <div class="profile-stat-label">冠军</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- AI Personal Persona / Insight -->
+          <div class="ai-insight-card" id="aiInsightCard">
+            <div class="ai-insight-title">
+              <span class="material-icons-outlined" style="font-size: 15px;">psychology</span>
+              AI 专属优选画像建议
+            </div>
+            <p class="ai-insight-content" id="aiInsightContent">正在汇总分析您的购买和偏好特质，请先进行几轮产品对比分析...</p>
+          </div>
+
+          <div class="prefs-section">
+            <h3 class="section-heading">偏好分析</h3>
+            <div class="prefs-grid" id="prefsGrid">
+              <!-- Preferences rendered by JS -->
+            </div>
+          </div>
+
+          <div class="profile-history">
+            <h3 class="section-heading">会话历史</h3>
+            <div id="profileHistoryList" class="history-list"></div>
+            <div class="empty-state" id="emptyHistory">还没有会话记录</div>
+          </div>
+          <div class="profile-actions">
+            <button class="btn-danger" id="clearDataBtn">清除所有数据</button>
+          </div>
+        </div>
+      </div>
+
+      </div><!-- end phone-content -->
+
+      <!-- Bottom Tab Bar -->
+      <nav class="tab-bar" id="tabBar">
+        <div class="tab-item tab-active" data-view="home" onclick="ChovyRouter.navigate('/home')">
+          <span class="tab-icon"><span class="material-icons-outlined">home</span></span>
+          <span class="tab-label">首页</span>
+        </div>
+        <div class="tab-item" data-view="discover" onclick="ChovyRouter.navigate('/discover')">
+          <span class="tab-icon"><span class="material-icons-outlined">explore</span></span>
+          <span class="tab-label">发现</span>
+        </div>
+        <div class="tab-item" data-view="my" onclick="ChovyRouter.navigate('/my')">
+          <span class="tab-icon"><span class="material-icons-outlined">person</span></span>
+          <span class="tab-label">我的</span>
+        </div>
+      </nav>
+
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script src="js/router.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/home.js"></script>
+  <script src="js/face.js"></script>
+  <script src="js/thinking.js"></script>
+  <script src="js/arena.js"></script>
+  <script src="js/result.js"></script>
+  <script src="js/discover.js"></script>
+  <script src="js/profile.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

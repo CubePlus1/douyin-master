@@ -1,0 +1,39 @@
+{
+  "thinking_sequence": [
+    {
+      "type": "ai_bubble",
+      "text": "收到！我来看看这个视频讲了什么。",
+      "delay": 800
+    },
+    {
+      "type": "ai_bubble",
+      "text": "视频标题：「{title}」\n作者：{author}",
+      "delay": 1500
+    },
+    {
+      "type": "tool_card",
+      "tool_name": "抖音检索",
+      "tool_icon": "travel_explore",
+      "status": "searching",
+      "delay": 2000
+    },
+    {
+      "type": "ai_bubble",
+      "text": "在抖音找到了相关推荐，正在筛选最佳候选...",
+      "delay": 2000
+    },
+    {
+      "type": "tool_card",
+      "tool_name": "候选筛选",
+      "tool_icon": "auto_awesome",
+      "result_count": 4,
+      "status": "done",
+      "delay": 1500
+    },
+    {
+      "type": "ai_bubble",
+      "text": "找到4个候选产品，准备进入群聊！\n主持人会通过几个问题帮你找到最合适的。",
+      "delay": 1000
+    }
+  ]
+}

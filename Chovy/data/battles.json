@@ -1,0 +1,352 @@
+{
+  "products": [
+    {
+      "id": "b001",
+      "category": "lipstick",
+      "name": "丝绒唇釉 #405",
+      "brand": "阿玛尼",
+      "price": "320元/6.5ml",
+      "price_num": 320,
+      "image": "",
+      "power": 95,
+      "source": {
+        "platform": "抖音",
+        "author": "美妆师小鱼",
+        "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=xiaoyu"
+      },
+      "argument": "丝绒质地不拔干，#405显白王者色号，黄皮亲妈",
+      "details": {
+        "color_type": "正红色系",
+        "lasting": "8小时持妆",
+        "lasting_num": 8,
+        "texture": "丝绒哑光",
+        "suitable": "所有肤色",
+        "highlights": ["丝绒质地", "显白王者", "不拔干", "经典色号"]
+      }
+    },
+    {
+      "id": "b002",
+      "category": "lipstick",
+      "name": "烈艳蓝金唇膏 #999",
+      "brand": "迪奥",
+      "price": "350元/3.5g",
+      "price_num": 350,
+      "image": "",
+      "power": 93,
+      "source": {
+        "platform": "抖音",
+        "author": "成分党Lisa",
+        "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=lisa"
+      },
+      "argument": "正红色天花板，质地滋润不卡纹，送礼首选",
+      "details": {
+        "color_type": "经典正红",
+        "lasting": "6小时持妆",
+        "lasting_num": 6,
+        "texture": "滋润缎光",
+        "suitable": "所有肤色",
+        "highlights": ["正红天花板", "滋润不卡纹", "送礼首选", "高显色度"]
+      }
+    },
+    {
+      "id": "b003",
+      "category": "lipstick",
+      "name": "小金条 #1966",
+      "brand": "YSL",
+      "price": "340元/2.2g",
+      "price_num": 340,
+      "image": "",
+      "power": 91,
+      "source": {
+        "platform": "抖音",
+        "author": "毛蛋MAODAN",
+        "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=maodan"
+      },
+      "argument": "复古红棕调，黄皮显白神器，秋冬必备色号",
+      "details": {
+        "color_type": "红棕复古",
+        "lasting": "7小时持妆",
+        "lasting_num": 7,
+        "texture": "柔雾哑光",
+        "suitable": "黄皮/暖皮",
+        "highlights": ["复古红棕", "黄皮显白", "秋冬必备", "高级感"]
+      }
+    },
+    {
+      "id": "b004",
+      "category": "lipstick",
+      "name": "子弹头 #Chili",
+      "brand": "MAC",
+      "price": "170元/3g",
+      "price_num": 170,
+      "image": "",
+      "power": 89,
+      "source": {
+        "platform": "抖音",
+        "author": "口红达人",
+        "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=zhihu"
+      },
+      "argument": "小辣椒色号，性价比之王，一支搞定日常通勤",
+      "details": {
+        "color_type": "铁锈红",
+        "lasting": "5小时持妆",
+        "lasting_num": 5,
+        "texture": "哑光雾面",
+        "suitable": "所有肤色",
+        "highlights": ["性价比之王", "小辣椒经典", "日常百搭", "色号齐全"]
+      }
+    },
+    {
+      "id": "b005",
+      "category": "lipstick",
+      "name": "花露胭脂唇釉 #121",
+      "brand": "花西子",
+      "price": "129元/4ml",
+      "price_num": 129,
+      "image": "",
+      "power": 87,
+      "source": {
+        "platform": "抖音",
+        "author": "天猫美妆榜",
+        "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=tmall"
+      },
+      "argument": "国货之光，养唇不拔干，东方美学设计满分",
+      "details": {
+        "color_type": "豆沙粉",
+        "lasting": "6小时持妆",
+        "lasting_num": 6,
+        "texture": "水润镜面",
+        "suitable": "白皮/自然肤色",
+        "highlights": ["国货之光", "养唇成分", "东方美学", "高性价比"]
+      }
+    },
+    {
+      "id": "b006",
+      "category": "lipstick",
+      "name": "红管唇釉 #400",
+      "brand": "阿玛尼",
+      "price": "320元/6.5ml",
+      "price_num": 320,
+      "image": "",
+      "power": 90,
+      "source": {
+        "platform": "抖音",
+        "author": "MK凉凉",
+        "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=mk"
+      },
+      "argument": "复古玫瑰红，薄涂厚涂两种风格，约会战袍",
+      "details": {
+        "color_type": "玫瑰红",
+        "lasting": "7小时持妆",
+        "lasting_num": 7,
+        "texture": "丝绒哑光",
+        "suitable": "所有肤色",
+        "highlights": ["复古玫瑰", "一支两色", "约会必备", "高级丝绒"]
+      }
+    },
+    {
+      "id": "b007",
+      "category": "lipstick",
+      "name": "黑管唇膏 #333",
+      "brand": "YSL",
+      "price": "340元/3.8g",
+      "price_num": 340,
+      "image": "",
+      "power": 88,
+      "source": {
+        "platform": "抖音",
+        "author": "老爸评测",
+        "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=laobapin"
+      },
+      "argument": "干枫叶色，持久度实测8h不脱色，秋冬氛围感",
+      "details": {
+        "color_type": "干枫叶",
+        "lasting": "8小时持妆",
+        "lasting_num": 8,
+        "texture": "滋润缎光",
+        "suitable": "黄皮/暖皮",
+        "highlights": ["8h不脱色", "干枫叶色", "秋冬氛围", "滋润配方"]
+      }
+    },
+    {
+      "id": "b008",
+      "category": "lipstick",
+      "name": "倾慕唇膏 #333",
+      "brand": "雅诗兰黛",
+      "price": "290元/3.5g",
+      "price_num": 290,
+      "image": "",
+      "power": 86,
+      "source": {
+        "platform": "抖音",
+        "author": "小猪姐姐zz",
+        "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=pig"
+      },
+      "argument": "300元档天花板，枫叶红茶色，质感不输大牌",
+      "details": {
+        "color_type": "枫叶红茶",
+        "lasting": "6小时持妆",
+        "lasting_num": 6,
+        "texture": "滋润奶油",
+        "suitable": "所有肤色",
+        "highlights": ["300元天花板", "枫叶红茶", "质感高级", "日常百搭"]
+      }
+    },
+    {
+      "id": "f001",
+      "category": "foundation",
+      "name": "权力粉底液 SPF25",
+      "brand": "阿玛尼",
+      "price": "590元/30ml",
+      "price_num": 590,
+      "image": "",
+      "power": 96,
+      "source": {
+        "platform": "抖音",
+        "author": "美妆师小鱼",
+        "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=xiaoyu"
+      },
+      "argument": "遮瑕力天花板，雾面妆效，油皮亲妈不脱妆",
+      "details": {
+        "color_type": "自然色",
+        "lasting": "12小时持妆",
+        "lasting_num": 12,
+        "texture": "雾面哑光",
+        "coverage": "高遮瑕",
+        "spf": "SPF25",
+        "suitable": "油皮/混合皮",
+        "highlights": ["雾面妆效", "高遮瑕", "持妆王者", "SPF25"]
+      }
+    },
+    {
+      "id": "f002",
+      "category": "foundation",
+      "name": "锁妆粉底液 SPF30",
+      "brand": "迪奥",
+      "price": "480元/30ml",
+      "price_num": 480,
+      "image": "",
+      "power": 94,
+      "source": {
+        "platform": "抖音",
+        "author": "成分党Lisa",
+        "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=lisa"
+      },
+      "argument": "缎光奶油肌妆效，干皮友好不卡粉，自带柔焦滤镜",
+      "details": {
+        "color_type": "象牙白",
+        "lasting": "10小时持妆",
+        "lasting_num": 10,
+        "texture": "缎光奶油",
+        "coverage": "中等遮瑕",
+        "spf": "SPF30",
+        "suitable": "干皮/中性",
+        "highlights": ["缎光妆效", "干皮友好", "不卡粉", "SPF30"]
+      }
+    },
+    {
+      "id": "f003",
+      "category": "foundation",
+      "name": "超模粉底液 SPF20",
+      "brand": "YSL",
+      "price": "520元/30ml",
+      "price_num": 520,
+      "image": "",
+      "power": 92,
+      "source": {
+        "platform": "抖音",
+        "author": "毛蛋MAODAN",
+        "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=maodan"
+      },
+      "argument": "轻薄水润不假面，打造自然光泽感，混合皮也能用",
+      "details": {
+        "color_type": "暖调自然",
+        "lasting": "8小时持妆",
+        "lasting_num": 8,
+        "texture": "水润光泽",
+        "coverage": "轻薄遮瑕",
+        "spf": "SPF20",
+        "suitable": "混合皮/中性",
+        "highlights": ["轻薄水润", "自然光泽", "不假面", "SPF20"]
+      }
+    },
+    {
+      "id": "f004",
+      "category": "foundation",
+      "name": "定制无瑕粉底液",
+      "brand": "MAC",
+      "price": "320元/30ml",
+      "price_num": 320,
+      "image": "",
+      "power": 90,
+      "source": {
+        "platform": "抖音",
+        "author": "口红达人",
+        "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=zhihu"
+      },
+      "argument": "专业级遮瑕力，色号超全，油皮持妆8小时不暗沉",
+      "details": {
+        "color_type": "自然偏白",
+        "lasting": "8小时持妆",
+        "lasting_num": 8,
+        "texture": "哑光雾面",
+        "coverage": "高遮瑕",
+        "spf": "SPF15",
+        "suitable": "油皮/混合皮",
+        "highlights": ["专业遮瑕", "色号齐全", "不暗沉", "性价比高"]
+      }
+    },
+    {
+      "id": "f005",
+      "category": "foundation",
+      "name": "养肤粉底液 SPF50",
+      "brand": "雅诗兰黛",
+      "price": "460元/30ml",
+      "price_num": 460,
+      "image": "",
+      "power": 93,
+      "source": {
+        "platform": "抖音",
+        "author": "老爸评测",
+        "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=laobapin"
+      },
+      "argument": "边化妆边养肤，干皮救星不卡纹，高倍防晒一步到位",
+      "details": {
+        "color_type": "暖调自然",
+        "lasting": "10小时持妆",
+        "lasting_num": 10,
+        "texture": "滋润水光",
+        "coverage": "中等遮瑕",
+        "spf": "SPF50",
+        "suitable": "干皮/中性",
+        "highlights": ["养肤成分", "干皮救星", "高倍防晒", "不卡纹"]
+      }
+    },
+    {
+      "id": "f006",
+      "category": "foundation",
+      "name": "空气粉底液",
+      "brand": "花西子",
+      "price": "169元/30ml",
+      "price_num": 169,
+      "image": "",
+      "power": 88,
+      "source": {
+        "platform": "抖音",
+        "author": "天猫美妆榜",
+        "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=tmall"
+      },
+      "argument": "国货粉底液天花板，轻薄如空气，百元价位千元质感",
+      "details": {
+        "color_type": "自然色",
+        "lasting": "6小时持妆",
+        "lasting_num": 6,
+        "texture": "轻薄哑光",
+        "coverage": "轻薄遮瑕",
+        "spf": "SPF30",
+        "suitable": "所有肤质",
+        "highlights": ["国货之光", "轻薄空气感", "百元价位", "SPF30"]
+      }
+    }
+  ]
+}

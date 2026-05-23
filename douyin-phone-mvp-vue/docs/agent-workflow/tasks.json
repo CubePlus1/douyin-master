@@ -1,0 +1,190 @@
+{
+  "workflow": "douyin-phone-mvp-multi-agent",
+  "version": 2,
+  "updatedAt": "2026-05-23T00:00:00.000Z",
+  "projectRoot": "C:\\Users\\Phoenix\\Desktop\\douyin-phone-mvp-vue",
+  "agents": {
+    "Debug Agent": {
+      "role": "Diagnose build, type-check, lint, and runtime blockers before downstream work.",
+      "mode": "read-write-minimal"
+    },
+    "Video Retrieval Agent": {
+      "role": "Collect authorized/open-source/user-provided short-video candidates and filter them for Douyin-compatible vertical format.",
+      "mode": "read-write-minimal"
+    },
+    "Video Import Agent": {
+      "role": "Prepare and validate the real manifest import flow for posts6.json-compatible data.",
+      "mode": "read-write-minimal"
+    },
+    "Video Stack Insert Agent": {
+      "role": "Insert selected videos into the recommendation stack with stable random ordering and idempotency.",
+      "mode": "read-write-minimal"
+    },
+    "Beauty Specialist Agent": {
+      "role": "Pin and validate the foundation-review beauty UP-style video in the second feed slot.",
+      "mode": "read-write-minimal"
+    },
+    "UI Design Agent": {
+      "role": "Maintain the share-sheet 入口 button placement, visual fit, and route behavior.",
+      "mode": "read-write-minimal"
+    },
+    "Share Entry Verification Agent": {
+      "role": "Verify the share button opens the expected panel and the 入口 action routes correctly.",
+      "mode": "read-mostly"
+    },
+    "Docs Agent": {
+      "role": "Document the workflow, commands, manifest format, validation steps, and limitations.",
+      "mode": "docs-only"
+    },
+    "Review Agent": {
+      "role": "Review final code, data flow, safety, and validation results.",
+      "mode": "read-only"
+    }
+  },
+  "tasks": [
+    {
+      "id": "debug-health-check",
+      "agent": "Debug Agent",
+      "priority": "high",
+      "status": "completed",
+      "dependsOn": [],
+      "goal": "Run project health checks first and separate historical issues from new multi-agent work.",
+      "scope": ["package.json", "src/**/*", "scripts/**/*"],
+      "acceptance": [
+        "Run npm run build and record result.",
+        "Run npm run type-check and classify existing errors versus new errors.",
+        "Run focused ESLint on touched multi-agent files."
+      ],
+      "notes": [
+        {
+          "at": "2026-05-23T00:00:00.000Z",
+          "status": "completed",
+          "note": "build passed with existing libarchive-wasm browser externalized warnings; focused lint passed; type-check still fails on existing project type debt and does not list current touched files.",
+          "output": "npm run build; npm run type-check; focused eslint"
+        }
+      ]
+    },
+    {
+      "id": "video-retrieval-candidates",
+      "agent": "Video Retrieval Agent",
+      "priority": "high",
+      "status": "pending",
+      "dependsOn": ["debug-health-check"],
+      "goal": "Retrieve or select a large set of high-quality Douyin-compatible short-video candidates from authorized sources, including a required beauty ratio and at least one foundation-review UP-style video.",
+      "scope": ["scripts/discover-videos-agent.cjs", "scripts/video-source-candidates.example.json", "scripts/generated-video-manifest.json"],
+      "acceptance": [
+        "Support authorized/user-provided candidate manifests.",
+        "Support optional open API discovery with PEXELS_API_KEY and rate limiting.",
+        "Filter for vertical videos, preferably 1080x1920 or equivalent 9:16.",
+        "Enforce a configurable beauty-video ratio.",
+        "Require at least one fixedSecond foundation-review candidate."
+      ],
+      "notes": []
+    },
+    {
+      "id": "video-import-flow",
+      "agent": "Video Import Agent",
+      "priority": "high",
+      "status": "pending",
+      "dependsOn": ["debug-health-check"],
+      "goal": "Prepare and validate the real manifest import flow without mutating posts6.json until a real manifest is provided.",
+      "scope": ["scripts/import-videos-agent.cjs", "scripts/video-manifest.example.json", "src/assets/data/posts6.json", "package.json"],
+      "acceptance": [
+        "Dry-run works without mutating posts6.json.",
+        "Importer validates id, videoUrl, coverUrl, and vertical dimensions.",
+        "Repeated imports are idempotent by aweme_id."
+      ],
+      "notes": []
+    },
+    {
+      "id": "ui-share-entry",
+      "agent": "UI Design Agent",
+      "priority": "high",
+      "status": "pending",
+      "dependsOn": ["debug-health-check"],
+      "goal": "Ensure pressing the right-side share button opens the bottom share panel with a first bottom-stack action named 入口.",
+      "scope": ["src/components/Share.vue", "src/router/routes.ts", "src/pages/shop/BuyDebate.vue"],
+      "acceptance": [
+        "The 入口 action appears before 转发 in video mode.",
+        "Clicking 入口 closes the sheet and routes to /shop/debate.",
+        "Existing share actions keep their behavior and order after the inserted entry."
+      ],
+      "notes": []
+    },
+    {
+      "id": "video-random-insert",
+      "agent": "Video Stack Insert Agent",
+      "priority": "high",
+      "status": "pending",
+      "dependsOn": ["video-retrieval-candidates", "video-import-flow"],
+      "goal": "Randomly insert selected candidate videos into the original recommendation display stack while preserving idempotency.",
+      "scope": ["scripts/import-videos-agent.cjs", "scripts/generated-video-manifest.json", "src/assets/data/posts6.json"],
+      "acceptance": [
+        "Ordinary videos are inserted in stable random-looking order.",
+        "The original stack is preserved except for intended insertions and de-duplication.",
+        "Rerunning the same manifest does not duplicate videos."
+      ],
+      "notes": []
+    },
+    {
+      "id": "beauty-second-slot",
+      "agent": "Beauty Specialist Agent",
+      "priority": "high",
+      "status": "pending",
+      "dependsOn": ["video-random-insert"],
+      "goal": "Guarantee one foundation-review beauty UP-style video is pinned at feed index 1.",
+      "scope": ["scripts/import-videos-agent.cjs", "scripts/generated-video-manifest.json", "scripts/video-manifest.example.json", "src/assets/data/posts6.json"],
+      "acceptance": [
+        "fixedSecond: true wins when present.",
+        "Fallback chooses 粉底液/底妆/美妆测评 content when no fixedSecond exists.",
+        "Second-slot logic does not duplicate the pinned item."
+      ],
+      "notes": []
+    },
+    {
+      "id": "share-entry-verify",
+      "agent": "Share Entry Verification Agent",
+      "priority": "high",
+      "status": "pending",
+      "dependsOn": ["ui-share-entry"],
+      "goal": "Verify the screenshot flow: right-side share button opens the panel, then the bottom button stack includes 入口 in the first position.",
+      "scope": ["src/components/Share.vue", "src/pages/home/index.vue", "src/components/slide/ItemToolbar.vue", "src/router/routes.ts"],
+      "acceptance": [
+        "The share trigger still opens the same dark share panel.",
+        "The first bottom action is 入口.",
+        "The route /shop/debate is reachable."
+      ],
+      "notes": []
+    },
+    {
+      "id": "docs-update",
+      "agent": "Docs Agent",
+      "priority": "medium",
+      "status": "pending",
+      "dependsOn": ["video-retrieval-candidates", "video-import-flow", "video-random-insert", "beauty-second-slot", "share-entry-verify"],
+      "goal": "Document how to use and develop the multi-agent workflow for debug, retrieval, import, insertion, UI entry, beauty pinning, docs, and review.",
+      "scope": ["docs/MULTI_AGENT_DEVELOPMENT.md", "docs/agent-workflow/**/*", "scripts/*.example.json"],
+      "acceptance": [
+        "Dispatcher commands are documented.",
+        "Video retrieval and import commands are documented.",
+        "Known limitations and verification steps are documented."
+      ],
+      "notes": []
+    },
+    {
+      "id": "final-review",
+      "agent": "Review Agent",
+      "priority": "high",
+      "status": "pending",
+      "dependsOn": ["debug-health-check", "video-retrieval-candidates", "video-import-flow", "video-random-insert", "beauty-second-slot", "ui-share-entry", "share-entry-verify", "docs-update"],
+      "goal": "Independently review the final implementation for correctness, safety, and delivery readiness.",
+      "scope": ["src/components/Share.vue", "scripts/**/*.cjs", "scripts/*.json", "docs/**/*.md", "docs/agent-workflow/tasks.json", "package.json"],
+      "acceptance": [
+        "No critical or high severity issues remain.",
+        "Build and focused lint results are reported.",
+        "Any residual type-check, dependency, or video-source risks are explicitly documented."
+      ],
+      "notes": []
+    }
+  ]
+}

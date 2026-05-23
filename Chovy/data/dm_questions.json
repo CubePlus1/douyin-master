@@ -1,0 +1,28 @@
+{
+  "dm_questions": [
+    {
+      "id": "q1",
+      "text": "你更看重持久度还是滋润度？",
+      "options": [
+        { "label": "持久度", "eliminate_rule": { "field": "details.lasting_num", "op": "lt", "value": 6 } },
+        { "label": "滋润度", "eliminate_rule": { "field": "details.texture", "op": "not_contains", "value": "滋润" } }
+      ]
+    },
+    {
+      "id": "q2",
+      "text": "预算300以上能接受吗？",
+      "options": [
+        { "label": "能接受", "eliminate_rule": { "field": "price_num", "op": "lt", "value": 200 } },
+        { "label": "尽量便宜", "eliminate_rule": { "field": "price_num", "op": "gte", "value": 300 } }
+      ]
+    },
+    {
+      "id": "q3",
+      "text": "你更喜欢哑光还是水润质地？",
+      "options": [
+        { "label": "哑光", "eliminate_rule": { "field": "details.texture", "op": "not_contains", "value": "哑光" } },
+        { "label": "水润", "eliminate_rule": { "field": "details.texture", "op": "not_contains", "value": "水润" } }
+      ]
+    }
+  ]
+}
