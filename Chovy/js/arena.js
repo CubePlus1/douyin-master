@@ -990,7 +990,7 @@ const ChovyArena = (() => {
         e.stopPropagation();
         gestureInit();
         AppState.isActive = false;
-        window.location.href = 'http://localhost:5178/';
+        window.location.href = 'http://localhost:5178/#/shop';
       });
     }
 

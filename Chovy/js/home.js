@@ -5,6 +5,7 @@
 const ChovyHome = (() => {
   let videos = [];
   let allVideos = [];
+  let allProducts = [];
   let selectedCategory = 'lipstick';
 
   async function init() {
@@ -16,14 +17,21 @@ const ChovyHome = (() => {
 
   async function loadVideos() {
     try {
+      // Fetch preset videos
       const resp = await fetch('/api/videos');
       const data = await resp.json();
       allVideos = data.videos;
       videos = allVideos;
+
+      // Fetch products database
+      const pResp = await fetch('/data/battles.json');
+      const pData = await pResp.json();
+      allProducts = pData.products || [];
     } catch (e) {
-      console.error('Failed to load videos:', e);
+      console.error('Failed to load videos or products:', e);
       allVideos = getFallbackVideos();
       videos = allVideos;
+      allProducts = getFallbackProducts();
     }
   }
 
@@ -36,27 +44,80 @@ const ChovyHome = (() => {
     ];
   }
 
+  function getFallbackProducts() {
+    return [
+      {
+        id: "b001",
+        category: "lipstick",
+        name: "丝绒唇釉 #405",
+        brand: "阿玛尼",
+        price: "320元/6.5ml",
+        price_num: 320,
+        power: 95,
+        source: { author: "美妆师小鱼" },
+        argument: "丝绒质地不拔干，#405显白王者色号，黄皮亲妈",
+        details: { highlights: ["丝绒质地", "显白王者", "不拔干"] }
+      },
+      {
+        id: "b002",
+        category: "lipstick",
+        name: "烈艳蓝金唇膏 #999",
+        brand: "迪奥",
+        price: "350元/3.5g",
+        price_num: 350,
+        power: 93,
+        source: { author: "成分党Lisa" },
+        argument: "正红色天花板，质地滋润不卡纹，送礼首选",
+        details: { highlights: ["正红天花板", "滋润不卡纹", "送礼首选"] }
+      }
+    ];
+  }
+
   function renderQuickList() {
     const el = document.getElementById('videoQuickList');
     if (!el) return;
 
-    const list = videos.slice(0, 4);
-    el.innerHTML = list.map(v => `
-      <div class="quick-item" data-video-id="${v.id}">
-        <div class="quick-item-icon">
-          <span class="material-icons-outlined">play_circle</span>
-        </div>
-        <div class="quick-item-text">
-          <div class="quick-item-title">${v.title}</div>
-          <div class="quick-item-meta">${v.author} · ${v.platform} · ${v.likes}</div>
-        </div>
-      </div>
-    `).join('');
+    // Use allProducts to render beautiful cards
+    const list = allProducts.slice(0, 4);
+    el.innerHTML = list.map(p => {
+      const highlightsHtml = (p.details?.highlights || [])
+        .slice(0, 3)
+        .map(h => `<span class="prod-tag">${h}</span>`)
+        .join('');
 
-    el.querySelectorAll('.quick-item').forEach(item => {
-      item.addEventListener('click', () => {
-        const vid = item.dataset.videoId;
-        startAnalysis(vid);
+      return `
+        <div class="product-card" data-product-id="${p.id}" data-author="${p.source?.author || ''}">
+          <div class="prod-header">
+            <span class="prod-brand-badge">${p.brand}</span>
+            <div class="prod-power">
+              <span class="material-icons-outlined" style="font-size: 14px; vertical-align: middle;">bolt</span>
+              <span>战力 ${p.power}</span>
+            </div>
+          </div>
+          <div class="prod-title">${p.name}</div>
+          <div class="prod-argument">${p.argument}</div>
+          <div class="prod-highlights">${highlightsHtml}</div>
+          <div class="prod-footer">
+            <span class="prod-price">${p.price}</span>
+            <span class="prod-action-tip">
+              <span>进入评测</span>
+              <span class="material-icons-outlined" style="font-size: 12px; vertical-align: middle;">arrow_forward</span>
+            </span>
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    // Setup click events on the cards to trigger the video that mentioned the product
+    el.querySelectorAll('.product-card').forEach(card => {
+      card.addEventListener('click', () => {
+        const author = card.dataset.author;
+        const matchedVideo = allVideos.find(v => v.author === author);
+        if (matchedVideo) {
+          startAnalysis(matchedVideo.id);
+        } else if (allVideos.length > 0) {
+          startAnalysis(allVideos[0].id);
+        }
       });
     });
   }
