@@ -1,4 +1,4 @@
-@import "./styles.css";
+@import "./styles-premium.css";
 
 /* ==========================================================================
    🎨 DESIGN SYSTEM: COSMETICS BATTLE ROYALE AVG (style.css)
@@ -45,6 +45,7 @@
   scrollbar-color: oklch(0.76 0.11 85 / 0.3) transparent;
 }
 
+/* Commented out to prevent overriding Chovy's body and phone simulator bezels
 body {
   background-color: var(--bg-obsidian);
   color: var(--text-primary);
@@ -58,7 +59,6 @@ body {
   padding: 10px !important;
 }
 
-/* --- 📱 Premium Desktop Bezel Phone Simulator --- */
 .desktop-phone-frame {
   position: relative;
   width: 100%;
@@ -67,11 +67,11 @@ body {
   max-height: 960px;
   background-color: var(--bg-obsidian);
   border-radius: 40px;
-  border: 10px solid #e5dfd5; /* soft creamy bezel border */
+  border: 10px solid #e5dfd5;
   box-shadow: 
     0 0 0 2px rgba(255, 255, 255, 0.8),
     0 25px 60px -15px oklch(0.24 0.03 75 / 0.18),
-    0 0 45px oklch(0.76 0.11 85 / 0.12); /* Champagne gold ambient shadow */
+    0 0 45px oklch(0.76 0.11 85 / 0.12);
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -103,6 +103,7 @@ body {
   z-index: 101;
   pointer-events: none;
 }
+*/
 
 /* --- 640px App Main Container --- */
 .app-container {
