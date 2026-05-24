@@ -1077,6 +1077,11 @@ const ChovyArena = (() => {
     }
 
     // ⚖️ Preference Checkpoint Button Bindings
+    if (el.dialogueChoicesContainer) {
+      el.dialogueChoicesContainer.addEventListener('click', (e) => {
+        e.stopPropagation();
+      });
+    }
     if (el.btnDecideLuxury) {
       el.btnDecideLuxury.addEventListener('click', (e) => {
         e.stopPropagation();
