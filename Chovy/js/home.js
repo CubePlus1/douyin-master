@@ -9,7 +9,6 @@ const ChovyHome = (() => {
 
   async function init() {
     await loadVideos();
-    setupCategoryPills();
     renderQuickList();
     renderHistory();
     setupEvents();
@@ -20,7 +19,7 @@ const ChovyHome = (() => {
       const resp = await fetch('/api/videos');
       const data = await resp.json();
       allVideos = data.videos;
-      videos = allVideos.filter(v => v.category === selectedCategory);
+      videos = allVideos;
     } catch (e) {
       console.error('Failed to load videos:', e);
       allVideos = getFallbackVideos();
@@ -28,26 +27,12 @@ const ChovyHome = (() => {
     }
   }
 
-  function setupCategoryPills() {
-    const pills = document.querySelectorAll('.cat-pill');
-    pills.forEach(pill => {
-      pill.addEventListener('click', () => {
-        pills.forEach(p => p.classList.remove('cat-pill-active'));
-        pill.classList.add('cat-pill-active');
-        selectedCategory = pill.dataset.category;
-        ChovyAppState.set('selectedCategory', selectedCategory);
-        videos = allVideos.filter(v => v.category === selectedCategory);
-        renderQuickList();
-      });
-    });
-    ChovyAppState.set('selectedCategory', selectedCategory);
-  }
-
   function getFallbackVideos() {
     return [
-      { id: 'v001', title: '2024年度口红榜单！这5支闭眼入不出错', author: '美妆师小鱼', platform: '抖音', likes: '23.6万' },
-      { id: 'v002', title: '黄皮显白口红合集！这几支素颜也能涂', author: '成分党Lisa', platform: '抖音', likes: '15.8万' },
-      { id: 'v003', title: '阿玛尼vs迪奥vsYSL 大牌口红到底谁更值？', author: '毛蛋MAODAN', platform: '抖音', likes: '67.3万' },
+      { id: 'v001', title: '2024年度口红榜单！这5支闭眼入不出错', author: '美妆师小鱼', platform: '抖音', likes: '23.6万', category: 'lipstick' },
+      { id: 'v002', title: '黄皮显白口红合集！这几支素颜也能涂', author: '成分党Lisa', platform: '抖音', likes: '15.8万', category: 'lipstick' },
+      { id: 'v003', title: '阿玛尼vs迪奥vsYSL 大牌口红到底谁更值？', author: '毛蛋MAODAN', platform: '抖音', likes: '67.3万', category: 'lipstick' },
+      { id: 'v009', title: '6款粉底液大横评！油皮干皮各有推荐', author: '美妆师小鱼', platform: '抖音', likes: '45.2万', category: 'foundation' }
     ];
   }
 
@@ -103,49 +88,27 @@ const ChovyHome = (() => {
   }
 
   function setupEvents() {
-    const input = document.getElementById('linkInput');
-    const btn = document.getElementById('linkSubmitBtn');
+    const btn = document.getElementById('daoDunBtn');
 
     if (btn) {
       btn.addEventListener('click', () => {
-        const url = input ? input.value.trim() : '';
-        if (url) {
-          parseAndStart(url);
-        } else if (videos.length > 0) {
-          startAnalysis(videos[0].id);
+        if (videos.length > 0) {
+          // Pick a random video for high variety and fun!
+          const randomIndex = Math.floor(Math.random() * videos.length);
+          startAnalysis(videos[randomIndex].id);
         }
       });
-    }
-
-    if (input) {
-      input.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
-          btn.click();
-        }
-      });
-    }
-  }
-
-  async function parseAndStart(url) {
-    try {
-      const resp = await fetch('/api/parse', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ url })
-      });
-      const data = await resp.json();
-      if (data.success && data.video) {
-        startAnalysis(data.video.id, url);
-      }
-    } catch (e) {
-      console.error('Parse failed:', e);
-      if (videos.length > 0) {
-        startAnalysis(videos[0].id, url);
-      }
     }
   }
 
   function startAnalysis(videoId, sourceUrl) {
+    // Find the video in allVideos to get its category dynamically
+    const video = allVideos.find(v => v.id === videoId);
+    if (video && video.category) {
+      ChovyAppState.set('selectedCategory', video.category);
+    } else {
+      ChovyAppState.set('selectedCategory', 'lipstick');
+    }
     ChovyAppState.set('currentVideoId', videoId);
     ChovyAppState.set('sourceUrl', sourceUrl || '');
     ChovyRouter.navigate('/thinking');

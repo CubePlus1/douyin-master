@@ -43,10 +43,10 @@ const ChovyRouter = (() => {
       tab.classList.toggle('tab-active', tab.dataset.view === viewId);
     });
 
-    // Show/hide tab bar (hide during arena)
+    // Show/hide tab bar (hide during comic)
     const tabBar = document.getElementById('tabBar');
     if (tabBar) {
-      tabBar.style.display = (viewId === 'arena' || viewId === 'thinking') ? 'none' : '';
+      tabBar.style.display = (viewId === 'comic' || viewId === 'thinking') ? 'none' : '';
     }
 
     // Scroll phone content to top on view change

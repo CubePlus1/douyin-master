@@ -40,12 +40,8 @@ const ChovyAppState = (() => {
     }
   });
 
-  ChovyRouter.register('/arena', () => {
+  ChovyRouter.register('/comic', () => {
     ChovyArena.startArena();
-  });
-
-  ChovyRouter.register('/result', () => {
-    ChovyResult.showResult();
   });
 
   ChovyRouter.register('/discover', () => {

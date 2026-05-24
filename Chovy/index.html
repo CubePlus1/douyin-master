@@ -33,15 +33,14 @@
         <div class="view-inner">
           <div class="home-header">
             <h1 class="home-logo">CHOVY</h1>
-            <p class="home-subtitle">粘贴抖音链接，AI帮你选</p>
+            <p class="home-subtitle">AI 辩论，帮你做选品决策</p>
           </div>
-          <div class="category-pills" id="categoryPills">
-            <button class="cat-pill cat-pill-active" data-category="lipstick">口红</button>
-            <button class="cat-pill" data-category="foundation">粉底液</button>
-          </div>
-          <div class="link-input-box">
-            <input type="text" id="linkInput" placeholder="粘贴抖音视频链接..." autocomplete="off">
-            <button class="link-submit-btn" id="linkSubmitBtn">开始分析</button>
+
+          <div class="daodun-btn-box" style="margin-top: 16px; margin-bottom: 8px;">
+            <button class="link-submit-btn" id="daoDunBtn" style="width: 100%; padding: 14px; font-size: 1.05rem; font-weight: 700; border-radius: var(--radius); text-align: center; justify-content: center; display: flex; align-items: center; gap: 8px; box-shadow: var(--shadow-sm); cursor: pointer; transition: all 0.2s;">
+              <span class="material-icons-outlined">auto_awesome</span>
+              刀盾帮你选
+            </button>
           </div>
           <div class="quick-entry">
             <p class="quick-label">或者试试这些</p>
@@ -69,48 +68,187 @@
         </div>
       </div>
 
-      <!-- View: Arena (DM Group Chat) -->
-      <div class="view" id="view-arena">
-        <div class="view-inner" style="position:relative;">
-          <div class="pref-icon" id="prefIcon" style="display:none">
-            <span class="material-icons-outlined">psychology</span>
-          </div>
-          <div class="pref-panel" id="prefPanel" style="display:none"></div>
-          <div class="arena-header">
-            <div class="arena-round-label" id="arenaRoundLabel">选手就位</div>
-            <div class="arena-progress" id="arenaProgress">
-              <div class="arena-dot current"></div>
-              <div class="arena-dot"></div>
-              <div class="arena-dot"></div>
+      <!-- View: Arena (Comic Drama Battle) -->
+      <div class="view" id="view-comic">
+        <div class="view-inner app-container" id="app-container" style="position:relative; display:flex; flex-direction:column; height: 100%;">
+          
+          <!-- Top Header Area (Compact & Sleek) -->
+          <header class="header" style="margin-top: 10px;">
+            <div class="neon-title-group">
+              <h1 id="main-title" class="neon-title">BEAUTY SHOW</h1>
+              <span class="neon-subtitle">化妆品撕逼大戏 🎭</span>
             </div>
-          </div>
-          <div class="chat-group" id="chatGroup">
-            <!-- Group chat messages rendered by JS -->
-          </div>
-        </div>
-      </div>
+            
+            <!-- Top Small Emergency Panic Button -->
+            <button id="btn-boss" class="header-panic-btn" aria-label="消费者降临">
+              <span class="panic-icon">👩‍🦰</span> 消费者降临
+            </button>
 
-      <!-- View: Result -->
-      <div class="view" id="view-result">
-        <div class="view-inner">
-          <div class="result-crown">
-            <div class="crown-icon"><span class="material-icons-outlined">emoji_events</span></div>
-            <h2 class="result-title">冠军诞生</h2>
-          </div>
-          <div class="champion-card" id="championCard">
-            <!-- Champion rendered by JS -->
-          </div>
-          <div class="reason-section" id="reasonSection">
-            <!-- Reasons rendered by JS -->
-          </div>
-          <div class="recap-section" id="recapSection">
-            <h3 class="section-heading">战报回顾</h3>
-            <div id="recapList"></div>
-          </div>
-          <div class="result-actions">
-            <button class="btn-primary" id="replayBtn">再来一局</button>
-            <button class="btn-secondary" id="goProfileBtn">查看我的画像</button>
-          </div>
+            <!-- Live Decibel Meter -->
+            <div class="decibel-container" aria-label="吵架分贝仪">
+              <span class="decibel-label">DECIBELS / 分贝值</span>
+              <div class="decibel-meter-wrapper">
+                <div id="decibel-meter" class="decibel-meter">
+                  <div class="meter-bar bar-1"></div>
+                  <div class="meter-bar bar-2"></div>
+                  <div class="meter-bar bar-3"></div>
+                  <div class="meter-bar bar-4"></div>
+                  <div class="meter-bar bar-5"></div>
+                </div>
+                <span id="decibel-value" class="decibel-value">45 dB</span>
+              </div>
+            </div>
+          </header>
+
+          <!-- 👑 Top 1/3 Stage: 3 Characters Side-by-Side (并排格斗场) -->
+          <section class="stage-top" id="stage-top">
+            <!-- Full Screen Dynamic Action Lines and Flashes -->
+            <div id="speed-lines" class="speed-lines"></div>
+            <div id="flash-overlay" class="flash-overlay"></div>
+
+            <!-- 1. Left Column: Lancome Teint Idole (持妆女骑士 - 🥇 THE WINNER!) -->
+            <div id="card-luxury" class="compact-card state-idle" data-pm="luxury">
+              <!-- Spotlight Cone (Background Overlay for winner) -->
+              <div id="spotlight-beam" class="spotlight-beam"></div>
+
+              <div class="avatar-wrap-small glow-luxury">
+                <img src="asdf001.jpg?v=6" alt="持妆女骑士" class="avatar-img-small">
+                <div class="expression-badge-small badge-luxury">持妆女骑士</div>
+                <div class="sweat-droplets">💦</div>
+                <!-- Gold Medal Overlay (Rises during victory) -->
+                <div id="gold-medal" class="gold-medal" aria-label="金色奖牌">🥇</div>
+              </div>
+              <div class="mini-bar-outer">
+                <div id="bar-fill-luxury" class="mini-bar-fill bg-luxury" style="width: 100%;"></div>
+              </div>
+              <span id="hp-luxury" class="mini-hp-text">HP 100%</span>
+            </div>
+
+            <!-- 2. Middle Column: Estee Lauder Double Wear Light (轻薄策略师 / 核心女主) -->
+            <div id="card-science" class="compact-card state-idle" data-pm="science">
+              <div class="avatar-wrap-small glow-science">
+                <img src="asdf002.png?v=6" alt="轻薄策略师" class="avatar-img-small">
+                <div class="expression-badge-small badge-science">轻薄策略师</div>
+                <div class="sweat-droplets">💦</div>
+              </div>
+              <div class="mini-bar-outer">
+                <div id="bar-fill-science" class="mini-bar-fill bg-science" style="width: 100%;"></div>
+              </div>
+              <span id="hp-science" class="mini-hp-text">HP 100%</span>
+            </div>
+
+            <!-- 3. Right Column: Judydoll Air Focus (性价比甜妹) -->
+            <div id="card-budget" class="compact-card state-idle" data-pm="budget">
+              <div class="avatar-wrap-small glow-budget">
+                <img src="asdf003.png?v=6" alt="性价比甜妹" class="avatar-img-small">
+                <div class="expression-badge-small badge-budget">性价比甜妹</div>
+                <div class="sweat-droplets">💦</div>
+              </div>
+              <div class="mini-bar-outer">
+                <div id="bar-fill-budget" class="mini-bar-fill bg-budget" style="width: 100%;"></div>
+              </div>
+              <span id="hp-budget" class="mini-hp-text">HP 100%</span>
+            </div>
+          </section>
+
+          <!-- 💬 Bottom 2/3 Stage: Large Speaking Avatar & Slide Down Bubble -->
+          <section class="stage-bottom" id="stage-bottom">
+            <!-- Active Speaker Showcase Display (大头像展示区) -->
+            <div class="active-speaker-display">
+              <div id="speaker-avatar-container" class="large-avatar-glow bg-luxury-shadow">
+                <img id="speaker-avatar-img" src="asdf001.jpg?v=5" alt="消费者" class="large-avatar-img">
+                <span id="speaker-role-label" class="speaker-role-label">混油通勤党</span>
+              </div>
+            </div>
+
+            <!-- Downward Dialogue Box (往下弹的对话框) -->
+            <div class="dialogue-box-container">
+              <div class="dialogue-box" id="dialogue-trigger-area">
+                <div class="dialogue-header">
+                  <span id="dialogue-speaker-name" class="dialogue-speaker-badge bg-luxury-badge">持妆女骑士</span>
+                  <div class="dialogue-title-decor">TALK // 对话</div>
+                </div>
+                
+                <div class="dialogue-body">
+                  <p id="dialogue-text" class="dialogue-text">正在载入粉底液撕逼辩论剧场数据...</p>
+                </div>
+
+                <!-- Single Next Arrow Controller (唯一控制按钮) -->
+                <button id="next-btn" class="next-arrow-btn" aria-label="下一句对话">
+                  <span class="next-icon">&gt;</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- 🏆 Bottom AVG Results Panel (Shows recommendations directly inside lower 2/3 stage) -->
+            <div id="avg-results-panel" class="avg-results-panel hide-panel">
+              <div class="results-panel-header">
+                <span class="panel-winner-icon">🏆</span>
+                <div class="panel-winner-details">
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <h2 id="res-title">智能大乱斗·决策报告</h2>
+                    <button class="douyin-mall-btn" id="btn-buy-back" aria-label="点击购买">
+                      <span class="douyin-icon">🎵</span> 返回抖音
+                    </button>
+                  </div>
+                  <p>AI 根据多维博主测评与您的需求画像，生成了以下专属决策：</p>
+                </div>
+              </div>
+
+              <!-- Matching Score Card -->
+              <div class="matching-card">
+                <div class="radial-meter-box">
+                  <div class="radial-progress-container">
+                    <svg width="84" height="84">
+                      <circle class="radial-progress-bg" cx="42" cy="42" r="35" stroke-width="6" fill="transparent" />
+                      <circle class="radial-progress-fill" id="res-radial-fill" cx="42" cy="42" r="35" stroke-width="6" fill="transparent" stroke-dasharray="220" stroke-dashoffset="0" />
+                    </svg>
+                    <span class="radial-text" id="res-score-text">94%</span>
+                  </div>
+                  <span class="radial-label">智能匹配度</span>
+                </div>
+
+                <div class="matching-info">
+                  <div class="matching-title-row" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--glass-border); padding-bottom: 6px;">
+                    <h3 class="matching-product-name" id="res-product-name">兰蔻持妆清透粉底液</h3>
+                    <span class="matching-price-badge" id="res-price-range" style="font-size: 11px; font-weight: 800; color: var(--accent-cyan); background: oklch(0.76 0.11 85 / 0.1); padding: 2px 6px; border-radius: 4px; border: 1px solid oklch(0.76 0.11 85 / 0.2);">¥420 - ¥520</span>
+                  </div>
+                  <p class="matching-verdict" id="res-verdict" style="margin-top: 6px; font-size: 0.72rem; line-height: 1.4; color: var(--text-secondary);">
+                    最适合作为本次需求下的通勤主力粉底液。它在持妆、控油、抗暗沉三个核心维度上更贴近您的混油皮需求。
+                  </p>
+                </div>
+              </div>
+
+              <!-- Tab List Reasons -->
+              <div class="reasons-block" style="margin-top: 8px;">
+                <div style="font-size: 0.68rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">
+                  🎯 专属匹配解析 / RECOMMENDATION REASONS:
+                </div>
+                <div class="avg-reasons-list" id="res-reasons-container">
+                  <!-- Dynamically generated reasons -->
+                </div>
+              </div>
+
+              <!-- Risks warnings -->
+              <div class="risk-warning-card" style="margin-top: 8px; padding: 10px; border-radius: 12px; background: oklch(0.62 0.15 45 / 0.05); border: 1px solid oklch(0.62 0.15 45 / 0.15);">
+                <div class="risk-title" style="display: flex; align-items: center; gap: 6px; font-size: 0.72rem; font-weight: bold; color: #f97316;">
+                  <span>⚠️ 关键避雷风险提示 (RISK WARNINGS)</span>
+                </div>
+                <ul class="risk-content-list" id="res-risks-container" style="margin-top: 4px; font-size: 0.68rem; color: var(--text-secondary); line-height: 1.4; padding-left: 14px; margin-bottom: 0;">
+                  <!-- Dynamically generated risks -->
+                </ul>
+              </div>
+
+              <!-- Restart Button at Bottom -->
+              <div class="results-actions" style="margin-top: 10px; display: flex; justify-content: center; width: 100%;">
+                <button id="btn-restart-results" class="btn-restart-cta" style="margin: 0 5px 0 0; padding: 8px 16px; font-size: 0.76rem;">🔄 重新开始辩论</button>
+                <button id="btn-exit-debate" class="btn-restart-cta" style="margin: 0; padding: 8px 16px; font-size: 0.76rem; background: var(--glass-border);">🚪 退出决策</button>
+              </div>
+            </div>
+          </section>
+
+          <!-- Particle Container for interactive floaty icons -->
+          <div id="particle-container" class="particle-container"></div>
         </div>
       </div>
 
@@ -219,7 +357,6 @@
 
   <script src="js/thinking.js"></script>
   <script src="js/arena.js"></script>
-  <script src="js/result.js"></script>
   <script src="js/discover.js"></script>
   <script src="js/profile.js"></script>
   <script src="js/app.js"></script>

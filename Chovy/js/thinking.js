@@ -93,9 +93,9 @@ const ChovyThinking = (() => {
       await renderMatchResults(contestants);
     }
 
-    // Wait a moment then navigate to arena
+    // Wait a moment then navigate to comic
     await sleep(1200);
-    ChovyRouter.navigate('/arena');
+    ChovyRouter.navigate('/comic');
   }
 
   async function renderBubble(text) {
