@@ -4,6 +4,7 @@
 declare const LATEST_COMMIT_HASH: string
 
 interface ImportMetaEnv {
+  readonly VITE_BASE_URL?: string
   readonly VITE_CHOVY_ENTRY_URL?: string
   readonly VITE_ENV?: string
 }

@@ -4,23 +4,31 @@ export default {
   filePreview: 'http://192.168.0.103/static/uploads/'
 }
 
-const currentBaseUrl =
-  import.meta.env.BASE_URL === './'
-    ? window.location.pathname.replace(/\/$/, '')
-    : (import.meta.env.BASE_URL || '').replace(/\/$/, '')
+const configuredBaseUrl = (
+  import.meta.env.VITE_BASE_URL ||
+  (import.meta.env.BASE_URL === './' ? '' : import.meta.env.BASE_URL || '')
+).replace(/\/$/, '')
+
+const runtimeBaseUrl =
+  typeof window !== 'undefined' && window.location.hostname.endsWith('github.io')
+    ? `/${window.location.pathname.split('/').filter(Boolean)[0] || 'douyin-master'}`
+    : ''
+
+const currentBaseUrl = configuredBaseUrl || runtimeBaseUrl
+const appEnv = (import.meta.env.VITE_ENV || import.meta.env.MODE || '').toUpperCase()
 
 const BASE_URL_MAP = {
   DEV: '',
   PROD: '',
   // GP_PAGES: '/dist',
-  GP_PAGES: currentBaseUrl,
+  GP_PAGES: currentBaseUrl || '/douyin-master',
   GITEE_PAGES: '/douyin',
   UNI: 'https://dy.ttentau.top'
 }
 
-export const IS_SUB_DOMAIN = ['GITEE_PAGES', 'GP_PAGES'].includes(import.meta.env.VITE_ENV)
-export const IS_GITEE_PAGES = ['GITEE_PAGES'].includes(import.meta.env.VITE_ENV)
-export const BASE_URL = BASE_URL_MAP[import.meta.env.VITE_ENV] || ''
+export const IS_SUB_DOMAIN = ['GITEE_PAGES', 'GP_PAGES'].includes(appEnv)
+export const IS_GITEE_PAGES = ['GITEE_PAGES'].includes(appEnv)
+export const BASE_URL = BASE_URL_MAP[appEnv] || currentBaseUrl || ''
 export const IMG_URL = BASE_URL + '/images/'
 export const FILE_URL = BASE_URL + '/data/'
 export const IS_DEV = process.env.NODE_ENV !== 'production'

@@ -38,6 +38,9 @@ jobs:
 
       - name: Build site
         working-directory: douyin-phone-mvp-vue
+        env:
+          VITE_ENV: GP_PAGES
+          VITE_BASE_URL: /douyin-master
         run: npm run build-gp-pages
 
       - name: Copy Chovy static app

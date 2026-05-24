@@ -12,6 +12,7 @@ const lifecycle = process.env.npm_lifecycle_event
 export default defineConfig((): Promise<UserConfig> => {
   let latestCommitHash = ''
   const useCdn = lifecycle !== 'build-gp-pages'
+  const base = lifecycle === 'build-gp-pages' ? '/douyin-master/' : './'
 
   return new Promise((resolve) => {
     getLastCommit((err, commit) => {
@@ -19,7 +20,7 @@ export default defineConfig((): Promise<UserConfig> => {
         latestCommitHash = commit.shortHash
       }
       resolve({
-        base: './',
+        base,
         envDir: 'env',
         plugins: [
           VueMacros({
