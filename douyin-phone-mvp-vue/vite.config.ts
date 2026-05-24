@@ -11,6 +11,7 @@ const lifecycle = process.env.npm_lifecycle_event
 
 export default defineConfig((): Promise<UserConfig> => {
   let latestCommitHash = ''
+  const useCdn = lifecycle !== 'build-gp-pages'
 
   return new Promise((resolve) => {
     getLastCommit((err, commit) => {
@@ -34,30 +35,32 @@ export default defineConfig((): Promise<UserConfig> => {
           // Vue(),
           // VueJsx(),
           lifecycle === 'report' ? (visualizer({ open: false }) as any as PluginOption) : null,
-          importToCDN({
-            modules: [
-              {
-                name: 'vue',
-                var: 'Vue',
-                path: `https://lib.baomitu.com/vue/3.4.21/vue.runtime.global.prod.min.js`
-              },
-              {
-                name: 'vue-router',
-                var: 'VueRouter',
-                path: 'https://lib.baomitu.com/vue-router/4.3.0/vue-router.global.prod.min.js'
-              },
-              {
-                name: 'vue-demi',
-                var: 'VueDemi',
-                path: 'https://lib.baomitu.com/vue-demi/0.14.7/index.iife.min.js'
-              },
-              {
-                name: 'mockjs',
-                var: 'Mock',
-                path: 'https://lib.baomitu.com/Mock.js/1.0.1-beta3/mock-min.js'
-              }
-            ]
-          })
+          useCdn
+            ? importToCDN({
+                modules: [
+                  {
+                    name: 'vue',
+                    var: 'Vue',
+                    path: `https://lib.baomitu.com/vue/3.4.21/vue.runtime.global.prod.min.js`
+                  },
+                  {
+                    name: 'vue-router',
+                    var: 'VueRouter',
+                    path: 'https://lib.baomitu.com/vue-router/4.3.0/vue-router.global.prod.min.js'
+                  },
+                  {
+                    name: 'vue-demi',
+                    var: 'VueDemi',
+                    path: 'https://lib.baomitu.com/vue-demi/0.14.7/index.iife.min.js'
+                  },
+                  {
+                    name: 'mockjs',
+                    var: 'Mock',
+                    path: 'https://lib.baomitu.com/Mock.js/1.0.1-beta3/mock-min.js'
+                  }
+                ]
+              })
+            : null
           // viteCompression({
           //   verbose: false,
           //   disable: false,
