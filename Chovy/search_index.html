@@ -36,14 +36,23 @@
             <p class="home-subtitle">AI 辩论，帮你做选品决策</p>
           </div>
 
-          <div class="daodun-btn-box" style="margin-top: 16px; margin-bottom: 8px;">
+          <!-- Search Bar -->
+          <div class="search-bar-box" style="margin-top: 16px; margin-bottom: 12px; display: flex; gap: 8px; width: 100%;">
+            <input type="text" id="searchBarInput" placeholder="输入粉底液搜索..." autocomplete="off" style="flex: 1; padding: 12px 16px; font-size: 0.9rem; border-radius: var(--radius); border: 1px solid var(--border); background: var(--bg-card); color: var(--text-primary); outline: none;">
+            <button class="link-submit-btn" id="searchBarBtn" style="padding: 12px 20px; font-size: 0.95rem; font-weight: 700; border-radius: var(--radius); cursor: pointer; display: flex; align-items: center; gap: 4px;">
+              <span class="material-icons-outlined" style="font-size: 16px; vertical-align: middle;">search</span>
+              搜索
+            </button>
+          </div>
+
+          <div class="daodun-btn-box" style="margin-top: 8px; margin-bottom: 8px;">
             <button class="link-submit-btn" id="daoDunBtn" style="width: 100%; padding: 14px; font-size: 1.05rem; font-weight: 700; border-radius: var(--radius); text-align: center; justify-content: center; display: flex; align-items: center; gap: 8px; box-shadow: var(--shadow-sm); cursor: pointer; transition: all 0.2s;">
               <span class="material-icons-outlined">auto_awesome</span>
               刀盾帮你选
             </button>
           </div>
           <div class="quick-entry">
-            <p class="quick-label">该视频里提到的内容</p>
+            <p class="quick-label">你可能会感兴趣的</p>
             <div id="videoQuickList" class="product-cards-container"></div>
           </div>
           <div class="history-section" id="historySection" style="display:none">

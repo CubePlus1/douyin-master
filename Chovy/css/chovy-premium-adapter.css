@@ -406,18 +406,8 @@ body {
   flex-direction: column;
   gap: 12px;
   margin-top: 10px;
-  overflow-y: auto;
-  max-height: 380px;
   padding-right: 2px;
-}
-
-/* Custom Scrollbar for Container */
-.product-cards-container::-webkit-scrollbar {
-  width: 4px;
-}
-.product-cards-container::-webkit-scrollbar-thumb {
-  background: var(--glass-border);
-  border-radius: 99px;
+  padding-bottom: 24px; /* Spacing at bottom of home view */
 }
 
 .product-card {
@@ -425,7 +415,7 @@ body {
   background: oklch(1 0 0 / 0.5);
   border: 1px solid var(--glass-border);
   border-radius: 16px;
-  padding: 14px;
+  padding: 14px 16px;
   box-shadow: var(--glass-shadow);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
@@ -435,6 +425,8 @@ body {
   flex-direction: column;
   gap: 8px;
   overflow: hidden;
+  word-wrap: break-word;
+  word-break: break-word;
 }
 
 .product-card::before {

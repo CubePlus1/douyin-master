@@ -26,13 +26,13 @@
       "type": "tool_card",
       "tool_name": "候选筛选",
       "tool_icon": "auto_awesome",
-      "result_count": 4,
+      "result_count": 3,
       "status": "done",
       "delay": 1500
     },
     {
       "type": "ai_bubble",
-      "text": "找到4个候选产品，准备进入群聊！\n主持人会通过几个问题帮你找到最合适的。",
+      "text": "找到3个候选产品，准备进入群聊！\n主持人会通过几个问题帮你找到最合适的。",
       "delay": 1000
     }
   ]

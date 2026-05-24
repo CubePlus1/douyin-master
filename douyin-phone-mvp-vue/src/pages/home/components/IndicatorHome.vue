@@ -33,7 +33,7 @@
         v-hide="loading"
         icon="ion:search"
         class="search"
-        @click="$router.push('/home/search')"
+        @click="goSearch"
       />
     </div>
     <Loading :style="loadingStyle" class="loading" style="width: 40rem" :is-full-screen="false" />
@@ -151,6 +151,9 @@ export default {
   },
 
   methods: {
+    goSearch() {
+      window.location.href = 'http://localhost:5000/search_index.html'
+    },
     change(index) {
       this.$emit('update:index', index)
       _css(this.indicatorRef, 'transition-duration', `300ms`)

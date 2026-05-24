@@ -74,18 +74,18 @@ def parse_video():
 @app.route("/api/thinking-data", methods=["POST"])
 def get_thinking_data():
     """
-    Receive video_id, face_profile, category -> return thinking data + 4 matched contestants.
+    Receive video_id, face_profile, category -> return thinking data + 3 matched contestants.
     """
     data = request.get_json() or {}
-    video_id = data.get("video_id", "v001")
+    video_id = data.get("video_id", "v009")
     face_profile = data.get("face_profile")
-    category = data.get("category", "lipstick")
+    category = data.get("category", "foundation")
 
     video = next((v for v in VIDEOS if v["id"] == video_id), VIDEOS[0])
 
     # Filter products by category
-    available = [p for p in PRODUCTS if p.get("category", "lipstick") == category]
-    if len(available) < 4:
+    available = [p for p in PRODUCTS if p.get("category", "foundation") == category]
+    if len(available) < 3:
         available = PRODUCTS.copy()
 
     # Score and sort by face profile match
@@ -96,7 +96,7 @@ def get_thinking_data():
     else:
         random.shuffle(available)
 
-    selected = available[:4]
+    selected = available[:3]
 
     # Add match scores to response
     for p in selected:

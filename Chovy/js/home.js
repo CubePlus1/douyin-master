@@ -37,10 +37,10 @@ const ChovyHome = (() => {
 
   function getFallbackVideos() {
     return [
-      { id: 'v001', title: '2024年度口红榜单！这5支闭眼入不出错', author: '美妆师小鱼', platform: '抖音', likes: '23.6万', category: 'lipstick' },
-      { id: 'v002', title: '黄皮显白口红合集！这几支素颜也能涂', author: '成分党Lisa', platform: '抖音', likes: '15.8万', category: 'lipstick' },
-      { id: 'v003', title: '阿玛尼vs迪奥vsYSL 大牌口红到底谁更值？', author: '毛蛋MAODAN', platform: '抖音', likes: '67.3万', category: 'lipstick' },
-      { id: 'v009', title: '6款粉底液大横评！油皮干皮各有推荐', author: '美妆师小鱼', platform: '抖音', likes: '45.2万', category: 'foundation' }
+      { id: 'v009', title: '6款粉底液大横评！油皮干皮各有推荐', author: '美妆师小鱼', platform: '抖音', likes: '45.2万', category: 'foundation' },
+      { id: 'v010', title: '干皮亲妈粉底液合集！不卡粉不起皮才是王道', author: '成分党Lisa', platform: '抖音', likes: '28.7万', category: 'foundation' },
+      { id: 'v011', title: '阿玛尼权力vs迪奥锁妆 粉底液巅峰对决', author: '毛蛋MAODAN', platform: '抖音', likes: '52.1万', category: 'foundation' },
+      { id: 'v012', title: '百元粉底液真的能替代大牌吗？实测给你看', author: '老爸评测', platform: '抖音', likes: '89.3万', category: 'foundation' }
     ];
   }
 
@@ -160,6 +160,43 @@ const ChovyHome = (() => {
         }
       });
     }
+
+    // Add search bar event listener for search_index.html
+    const searchBtn = document.getElementById('searchBarBtn');
+    const searchInput = document.getElementById('searchBarInput');
+
+    if (searchBtn && searchInput) {
+      const handleSearch = () => {
+        const query = searchInput.value.trim().toLowerCase();
+        
+        let matchedVideo = null;
+        if (query.includes('粉底') || query.includes('液') || query.includes('foundation')) {
+          matchedVideo = allVideos.find(v => v.category === 'foundation');
+        } else if (query.includes('口红') || query.includes('唇') || query.includes('lipstick')) {
+          matchedVideo = allVideos.find(v => v.category === 'lipstick');
+        } else if (query) {
+          // Attempt to match query with titles or authors
+          matchedVideo = allVideos.find(v => v.title.toLowerCase().includes(query) || v.author.toLowerCase().includes(query));
+        }
+
+        // If empty search, or no match found, pick a random video for a fun surprise!
+        if (!matchedVideo && allVideos.length > 0) {
+          const randomIndex = Math.floor(Math.random() * allVideos.length);
+          matchedVideo = allVideos[randomIndex];
+        }
+
+        if (matchedVideo) {
+          startAnalysis(matchedVideo.id);
+        }
+      };
+
+      searchBtn.addEventListener('click', handleSearch);
+      searchInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          handleSearch();
+        }
+      });
+    }
   }
 
   function startAnalysis(videoId, sourceUrl) {
@@ -168,7 +205,7 @@ const ChovyHome = (() => {
     if (video && video.category) {
       ChovyAppState.set('selectedCategory', video.category);
     } else {
-      ChovyAppState.set('selectedCategory', 'lipstick');
+      ChovyAppState.set('selectedCategory', 'foundation');
     }
     ChovyAppState.set('currentVideoId', videoId);
     ChovyAppState.set('sourceUrl', sourceUrl || '');

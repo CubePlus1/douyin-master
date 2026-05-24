@@ -37,7 +37,7 @@ const ChovyThinking = (() => {
 
     // Get face profile and category from app state
     const faceProfile = ChovyAppState.get('faceProfile') || ChovyStorage.getFaceProfile();
-    const category = ChovyAppState.get('selectedCategory') || 'lipstick';
+    const category = ChovyAppState.get('selectedCategory') || 'foundation';
 
     // Fetch thinking data from backend
     let thinkingData = null;

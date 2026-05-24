@@ -424,8 +424,20 @@ function getGoodsImg(item) {
 }
 
 onMounted(() => {
-  console.log('r', store.routeData.imgs)
-  state.detail = store.routeData
+  console.log('r', store.routeData?.imgs)
+  if (store.routeData && store.routeData.name) {
+    state.detail = store.routeData
+  } else {
+    // Fallback default details for "兰蔻持妆清透粉底液 (持妆女骑士)"
+    state.detail = {
+      id: 'lancome-teint-idole',
+      name: 'Lancome 兰蔻新持妆轻透粉底液 30ml (持妆女骑士)',
+      price: '420',
+      real_price: '389',
+      sold: '9.8万',
+      imgs: ['lancome-detail.jpg']
+    }
+  }
 })
 
 onUnmounted(() => {
