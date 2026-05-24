@@ -875,3 +875,284 @@ body {
     opacity: 1;
   }
 }
+
+/* ────────────────────────────────────────────────────────
+   Upgraded Match Results Card Overrides (OKLCH & Stacked Mobile)
+   ──────────────────────────────────────────────────────── */
+
+.match-results-card {
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
+.match-results-content {
+  background: linear-gradient(135deg, var(--bg-card), oklch(1.0 0.005 75 / 0.95)) !important;
+  border: 1px solid var(--glass-border) !important;
+  border-radius: 4px 18px 18px 18px !important;
+  padding: 16px !important;
+  box-shadow: 0 10px 30px oklch(0.24 0.03 75 / 0.06) !important;
+  max-width: 85% !important;
+}
+
+.match-results-title {
+  font-size: 0.88rem !important;
+  font-weight: 800 !important;
+  color: var(--text-primary) !important;
+  margin-bottom: 14px !important;
+  letter-spacing: 0.02em;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.match-results-title::before {
+  content: "🏆";
+  font-size: 1rem;
+}
+
+.match-results-list {
+  gap: 12px !important;
+}
+
+.match-item {
+  display: flex;
+  flex-direction: column !important; /* Stacked layout for perfect mobile width */
+  align-items: stretch !important;
+  gap: 6px !important;
+  background: oklch(0.24 0.03 75 / 0.02);
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid oklch(0.24 0.03 75 / 0.03);
+  transition: all 0.2s ease;
+}
+
+.match-item:hover {
+  background: oklch(0.24 0.03 75 / 0.04);
+  border-color: var(--accent-cyan);
+}
+
+.match-item-name {
+  font-size: 0.76rem !important;
+  font-weight: 700 !important;
+  color: var(--text-primary) !important;
+  min-width: unset !important;
+  flex-shrink: unset !important;
+}
+
+.match-bar-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.match-score-bar {
+  flex: 1;
+  height: 8px !important;
+  background: oklch(0.24 0.03 75 / 0.05) !important;
+  border-radius: 99px !important;
+  overflow: visible !important;
+}
+
+.match-score-fill {
+  height: 100% !important;
+  background: linear-gradient(90deg, var(--accent-cyan), var(--accent-crimson)) !important;
+  border-radius: 99px !important;
+  box-shadow: 0 0 8px oklch(0.68 0.18 355 / 0.4);
+  position: relative;
+}
+
+.match-score-fill::after {
+  content: "";
+  position: absolute;
+  right: -2px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 6px;
+  height: 6px;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 0 6px var(--accent-crimson);
+}
+
+.match-item-score {
+  font-size: 0.78rem !important;
+  font-weight: 800 !important;
+  color: var(--accent-crimson) !important;
+  min-width: 38px !important;
+}
+
+/* ────────────────────────────────────────────────────────
+   Preference Decision Checkpoint CSS (OKLCH Glassmorphic Overlay)
+   ──────────────────────────────────────────────────────── */
+
+.decision-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(10, 11, 18, 0.68) !important;
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 16px;
+  box-sizing: border-box;
+  transition: opacity 0.3s ease;
+}
+
+.decision-overlay.hide-overlay {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.decision-box {
+  width: 100%;
+  max-width: 320px;
+  background: var(--bg-card);
+  border: 1px solid var(--glass-border);
+  border-radius: 24px;
+  padding: 22px 18px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transform: scale(1);
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.decision-overlay.hide-overlay .decision-box {
+  transform: scale(0.8);
+}
+
+.decision-title-decor {
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: var(--accent-cyan);
+  background: oklch(0.76 0.11 85 / 0.1);
+  border: 1px solid oklch(0.76 0.11 85 / 0.2);
+  padding: 3px 10px;
+  border-radius: 99px;
+  margin-bottom: 10px;
+  letter-spacing: 1px;
+}
+
+.decision-box-title {
+  font-size: 1.15rem;
+  font-weight: 900;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+
+.decision-box-subtitle {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+  margin-bottom: 18px;
+  padding: 0 4px;
+}
+
+.decision-options-list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.decision-option-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  background: oklch(1.0 0.005 75 / 0.75) !important;
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  text-align: left;
+}
+
+.decision-option-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+}
+
+.decision-option-btn .btn-emoji {
+  font-size: 1.5rem;
+  transition: transform 0.2s;
+}
+
+.decision-option-btn:hover .btn-emoji {
+  transform: scale(1.2);
+}
+
+.decision-option-btn .btn-text-group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.decision-option-btn .btn-primary-text {
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.decision-option-btn .btn-secondary-text {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+}
+
+/* Theme specifics */
+.decision-option-btn.theme-luxury {
+  border-left: 4px solid var(--accent-cyan);
+}
+.decision-option-btn.theme-luxury:hover {
+  background: oklch(0.76 0.11 85 / 0.08);
+  border-color: var(--accent-cyan);
+}
+
+.decision-option-btn.theme-science {
+  border-left: 4px solid var(--accent-science);
+}
+.decision-option-btn.theme-science:hover {
+  background: oklch(0.70 0.12 200 / 0.08);
+  border-color: var(--accent-science);
+}
+
+.decision-option-btn.theme-budget {
+  border-left: 4px solid var(--accent-orange);
+}
+.decision-option-btn.theme-budget:hover {
+  background: oklch(0.78 0.13 60 / 0.08);
+  border-color: var(--accent-orange);
+}
+
+/* Inline Choice Dialogue Container */
+.dialogue-choices-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  margin-top: 10px;
+  animation: fadeInChoices 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes fadeInChoices {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.dialogue-choices-wrapper.hide-choices {
+  display: none !important;
+}

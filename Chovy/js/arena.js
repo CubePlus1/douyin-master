@@ -289,6 +289,8 @@ const ChovyArena = (() => {
     scriptIndex: 0,
     isFinished: false,
     isActive: false,
+    userDecided: false,
+    chosenWinner: null,
     
     // Cosmetics Stats
     charData: {
@@ -311,6 +313,11 @@ const ChovyArena = (() => {
         budgetWinner: document.getElementById('budget-winner'),
         particleContainer: document.getElementById('particle-container'),
         
+        // Interactive Choice Checkpoint Elements
+        dialogueChoicesContainer: document.getElementById('dialogue-choices-container'),
+        btnDecideLuxury: document.getElementById('btn-decide-luxury'),
+        btnDecideBudget: document.getElementById('btn-decide-budget'),
+
         // Control buttons & Dialogue Elements
         btnBoss: document.getElementById('btn-boss'),
         dialogueTrigger: document.getElementById('dialogue-trigger-area'),
@@ -360,6 +367,89 @@ const ChovyArena = (() => {
       };
     }
   };
+
+  // ⚖️ Preference Inquiry Checkpoint Managers
+  function showDecisionOverlay() {
+    const el = AppState.elements;
+    if (el.dialogueChoicesContainer) {
+      el.dialogueChoicesContainer.classList.remove('hide-choices');
+    }
+    if (el.nextBtn) {
+      el.nextBtn.style.display = 'none';
+    }
+    if (el.speakerAvatarImg) {
+      el.speakerAvatarImg.src = 'logo.jpg';
+    }
+    if (el.speakerRoleLabel) {
+      el.speakerRoleLabel.innerText = '决策公证官';
+    }
+    if (el.speakerNameBadge) {
+      el.speakerNameBadge.innerText = '决策公证官判定';
+      el.speakerNameBadge.className = 'dialogue-speaker-badge bg-boss-badge';
+    }
+    if (el.dialogueText) {
+      el.dialogueText.innerText = '战况激烈！请问您在此次通勤底妆中，更倾向于哪种核心消费选择？您的决定将直接影响大乱斗优胜推荐！';
+    }
+    addLog('⚖️ 偏好意向询问已唤起：性价比 🆚 高端？请公证官做出您的核心抉择...', 'system');
+  }
+
+  function hideDecisionOverlay() {
+    const el = AppState.elements;
+    if (el.dialogueChoicesContainer) {
+      el.dialogueChoicesContainer.classList.add('hide-choices');
+    }
+    if (el.nextBtn) {
+      el.nextBtn.style.display = '';
+    }
+  }
+
+  function handleDecision(chosen) {
+    AppState.userDecided = true;
+    AppState.chosenWinner = chosen;
+    hideDecisionOverlay();
+
+    // Chiptune crit sounds & blast VFX
+    synth.playCrit();
+    triggerCritVFX();
+    spawnParticles(chosen, 20);
+
+    // Apply structural visual changes to reflect influence
+    const pms = ['luxury', 'science', 'budget'];
+    pms.forEach(pm => {
+      if (pm === chosen) {
+        setHP(pm, 100);
+      } else {
+        const curHp = AppState.charData[pm].hp;
+        setHP(pm, Math.max(25, curHp - 25)); // others take collateral damage!
+      }
+    });
+
+    // Shift tug budget segment heavily towards chosen
+    AppState.charData[chosen].budget = 60;
+    pms.forEach(pm => {
+      if (pm !== chosen) {
+        AppState.charData[pm].budget = 20;
+      }
+    });
+    updateBudgetTug();
+
+    // Log the choice
+    const chosenName = chosen === 'luxury' ? '轻奢高端品质' : '极致性价比';
+    addLog(`🏆 决策公证官选择了偏好【${chosenName}】！大乱斗优胜天平已定！`, 'system');
+
+    // Dynamically update Step 10 speaker and victory dialogue
+    const stepTen = battleScript[10];
+    if (chosen === 'budget') {
+      stepTen.speaker = 'budget';
+      stepTen.text = '“通勤带妆才几个小时？省下几百大洋买咖啡大餐不香吗？性价比甜妹才是唯一的真香定律，绝对试错零心疼！”';
+    } else {
+      stepTen.speaker = 'luxury';
+      stepTen.text = '“所以结论更清楚了：想稳选我，想自然选她，想省钱选她。但今天她最怕的就是下午脱妆崩脸，持妆才是唯一王道！”';
+    }
+
+    // Automatically resume story index 7 narrative
+    executeAVGStep();
+  }
 
   // --- 🛠️ Helper Utilities ---
 
@@ -675,6 +765,10 @@ const ChovyArena = (() => {
 
   // Reset Entire Game to Initial State 0
   function resetAllShowStats() {
+    AppState.userDecided = false;
+    AppState.chosenWinner = null;
+    hideDecisionOverlay();
+
     const pms = ['luxury', 'science', 'budget'];
     pms.forEach(pm => {
       setHP(pm, 100);
@@ -740,6 +834,12 @@ const ChovyArena = (() => {
     if (AppState.isFinished) {
       // Finished, block screen clicks from looping/restarting the game
       return;
+    }
+
+    // ⚖️ Checkpoint: Ask user for biased decision before the battle intensifies
+    if (AppState.scriptIndex === 7 && !AppState.userDecided) {
+      showDecisionOverlay();
+      return; // pause story progression
     }
 
     const step = battleScript[AppState.scriptIndex];
@@ -955,6 +1055,8 @@ const ChovyArena = (() => {
         if (e.target.closest('#next-btn')) return;
         // If clicking header panic button, let its handler handle it
         if (e.target.closest('#btn-boss')) return;
+        // If clicking choices container, ignore
+        if (e.target.closest('#dialogue-choices-container')) return;
         // If clicking anywhere inside results actions, ignore
         if (e.target.closest('#btn-restart-results') || e.target.closest('#btn-exit-debate') || e.target.closest('#btn-buy-back')) return;
         // If clicking anywhere inside results-card, ignore
@@ -971,6 +1073,22 @@ const ChovyArena = (() => {
         e.stopPropagation(); // Stop event bubbling completely!
         gestureInit();
         executeAVGStep();
+      });
+    }
+
+    // ⚖️ Preference Checkpoint Button Bindings
+    if (el.btnDecideLuxury) {
+      el.btnDecideLuxury.addEventListener('click', (e) => {
+        e.stopPropagation();
+        gestureInit();
+        handleDecision('luxury');
+      });
+    }
+    if (el.btnDecideBudget) {
+      el.btnDecideBudget.addEventListener('click', (e) => {
+        e.stopPropagation();
+        gestureInit();
+        handleDecision('budget');
       });
     }
 
@@ -1023,18 +1141,16 @@ const ChovyArena = (() => {
       if (cardEl) {
         cardEl.addEventListener('click', (e) => {
           e.stopPropagation(); // Stop click from propagating to advance AVG step
+          gestureInit();
           
-          // If the AVG is finished (climax victory reached):
           if (AppState.isFinished) {
-            gestureInit();
+            // Finished: normal review logic
             synth.playSpeak(pmType);
             
-            // Update top cards visual states:
             const pms = ['luxury', 'science', 'budget'];
             pms.forEach(pm => {
               if (pm === pmType) {
                 setCardState(pm, 'idle');
-                // If it's the luxury winner, we restore its victory spotlight
                 if (pm === 'luxury') {
                   setCardState(pm, 'victory');
                 }
@@ -1043,7 +1159,6 @@ const ChovyArena = (() => {
               }
             });
             
-            // Show selected card results data
             showAVGResults(pmType);
           }
         });

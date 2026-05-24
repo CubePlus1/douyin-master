@@ -1,7 +1,109 @@
 /**
- * Chovy Thinking View - Chat bubble engine with typing animation
+ * Chovy Thinking View - Chat bubble engine with typing animation and 8-bit sound effects
  */
 
+// ─── Programmatic Retro 8-bit Audio Synthesizer (Chiptune Engine) ──────────────────
+const RetroAudio = (() => {
+  let ctx = null;
+
+  function initContext() {
+    if (!ctx) {
+      ctx = new (window.AudioContext || window.webkitAudioContext)();
+    }
+    if (ctx && ctx.state === 'suspended') {
+      ctx.resume();
+    }
+  }
+
+  // Tiny retro 8-bit blip sound (perfect for character text typing!)
+  function playBlip() {
+    try {
+      initContext();
+      if (!ctx) return;
+
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+
+      osc.type = 'square'; // classic sharp chiptune sound
+      
+      // Slight pitch variation for retro organic typing feel
+      const baseFreq = 480 + Math.random() * 240;
+      osc.frequency.setValueAtTime(baseFreq, ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(baseFreq * 1.4, ctx.currentTime + 0.04);
+
+      gain.gain.setValueAtTime(0.015, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.04);
+
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+
+      osc.start();
+      osc.stop(ctx.currentTime + 0.04);
+    } catch (e) {
+      console.warn('Web Audio playBlip failed:', e);
+    }
+  }
+
+  // 8-bit tool task completion chime
+  function playChime() {
+    try {
+      initContext();
+      if (!ctx) return;
+
+      const now = ctx.currentTime;
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+
+      osc.type = 'triangle'; // smooth, classic triangle arpeggio
+      osc.frequency.setValueAtTime(523.25, now); // C5
+      osc.frequency.setValueAtTime(659.25, now + 0.07); // E5
+      osc.frequency.setValueAtTime(783.99, now + 0.14); // G5
+      osc.frequency.setValueAtTime(1046.50, now + 0.21); // C6
+
+      gain.gain.setValueAtTime(0.04, now);
+      gain.gain.exponentialRampToValueAtTime(0.04, now + 0.21);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.40);
+
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+
+      osc.start();
+      osc.stop(now + 0.40);
+    } catch (e) {
+      console.warn('Web Audio playChime failed:', e);
+    }
+  }
+
+  // Retro sci-fi sweep sound (perfect for final matching scores)
+  function playSweep() {
+    try {
+      initContext();
+      if (!ctx) return;
+
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+
+      osc.type = 'sawtooth'; // retro transition sweep
+      osc.frequency.setValueAtTime(260, ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(1100, ctx.currentTime + 0.32);
+
+      gain.gain.setValueAtTime(0.03, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.32);
+
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+
+      osc.start();
+      osc.stop(ctx.currentTime + 0.32);
+    } catch (e) {
+      console.warn('Web Audio playSweep failed:', e);
+    }
+  }
+
+  return { initContext, playBlip, playChime, playSweep };
+})();
+
+// ─── Thinking Page Controller ────────────────────────────────────────────────────────
 const ChovyThinking = (() => {
   let aiMessages = null;
   let chatContainer = null;
@@ -34,6 +136,9 @@ const ChovyThinking = (() => {
   async function startThinking(videoId) {
     if (!chatContainer) return;
     chatContainer.innerHTML = '';
+
+    // Initialize AudioContext
+    RetroAudio.initContext();
 
     // Get face profile and category from app state
     const faceProfile = ChovyAppState.get('faceProfile') || ChovyStorage.getFaceProfile();
@@ -116,6 +221,12 @@ const ChovyThinking = (() => {
     for (let i = 0; i < chars.length; i++) {
       displayed += chars[i];
       contentEl.innerHTML = displayed + '<span class="typing-cursor"></span>';
+      
+      // Play retro chiptune blip on every second character for a polished pacing (like Zelda/Pokémon dialogues)
+      if (i % 2 === 0) {
+        RetroAudio.playBlip();
+      }
+
       await sleep(30 + Math.random() * 40);
     }
     // Remove cursor
@@ -153,14 +264,23 @@ const ChovyThinking = (() => {
       for (const chip of chips) {
         chip.classList.remove('searching');
         chip.classList.add('done');
+        
+        // Play task completion chime
+        RetroAudio.playChime();
         await sleep(200);
       }
       const statusEl = el.querySelector('.tool-card-status');
       if (statusEl) statusEl.textContent = '完成';
+    } else {
+      // Play task completion chime immediately if not searching
+      RetroAudio.playChime();
     }
   }
 
   async function renderMatchResults(contestants) {
+    // Play sci-fi sweep sound when results arrive
+    RetroAudio.playSweep();
+
     const el = document.createElement('div');
     el.className = 'match-results-card';
     el.innerHTML = `
@@ -171,10 +291,12 @@ const ChovyThinking = (() => {
           ${contestants.map(c => `
             <div class="match-item">
               <span class="match-item-name">${c.brand} ${c.name}</span>
-              <div class="match-score-bar">
-                <div class="match-score-fill" style="width:${c.match_score}%"></div>
+              <div class="match-bar-row">
+                <div class="match-score-bar">
+                  <div class="match-score-fill" style="width:${c.match_score}%"></div>
+                </div>
+                <span class="match-item-score">${c.match_score}%</span>
               </div>
-              <span class="match-item-score">${c.match_score}%</span>
             </div>
           `).join('')}
         </div>

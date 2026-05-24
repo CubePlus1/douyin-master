@@ -348,9 +348,67 @@
       </div>
       <div class="btns">
         <div class="btn">加入购物车</div>
-        <div class="btn">领券购买</div>
+        <div class="btn" @click="handlePurchase">领券购买</div>
       </div>
     </div>
+
+    <!-- Beautiful Toast Notification -->
+    <Transition name="fade">
+      <div v-if="toast.show" class="custom-toast">
+        <Icon icon="ic:round-check-circle" class="toast-icon" />
+        <span>{{ toast.message }}</span>
+      </div>
+    </Transition>
+
+    <!-- Payment Processing Overlay -->
+    <Transition name="fade">
+      <div v-if="payState.isPaying" class="fullscreen-overlay payment-processing">
+        <div class="overlay-card glassmorphic">
+          <div class="spinner-box">
+            <div class="premium-spinner"></div>
+          </div>
+          <h3 class="status-title">安全支付中...</h3>
+          <p class="status-subtitle">正在为您通过安全通道完成订单结算</p>
+        </div>
+      </div>
+    </Transition>
+
+    <!-- Order Success Receipt Overlay -->
+    <Transition name="fade">
+      <div v-if="payState.isSuccess" class="fullscreen-overlay payment-success">
+        <div class="overlay-card glassmorphic success-card">
+          <div class="success-icon-wrap">
+            <Icon icon="teenyicons:tick-circle-solid" class="success-icon" />
+          </div>
+          <h3 class="success-title">下单成功</h3>
+          <p class="success-subtitle">您的订单已支付完成，商家将火速发货</p>
+          
+          <div class="receipt-details">
+            <div class="receipt-row">
+              <span class="label">订单编号</span>
+              <span class="val font-mono">{{ payState.orderId }}</span>
+            </div>
+            <div class="receipt-row">
+              <span class="label">商品名称</span>
+              <span class="val truncate-2">{{ state.detail.name }}</span>
+            </div>
+            <div class="receipt-row" v-if="state.detail.price">
+              <span class="label">原价商品</span>
+              <span class="val line-through">￥{{ state.detail.price }}</span>
+            </div>
+            <div class="receipt-row highlight" v-if="state.detail.real_price">
+              <span class="label">领券实付</span>
+              <span class="val price">￥{{ state.detail.real_price }}</span>
+            </div>
+          </div>
+
+          <div class="success-actions">
+            <button class="btn-action primary" @click="closeSuccess(true)">回到首页</button>
+            <button class="btn-action secondary" @click="closeSuccess(false)">继续逛逛</button>
+          </div>
+        </div>
+      </div>
+    </Transition>
   </div>
 </template>
 
@@ -443,6 +501,57 @@ onMounted(() => {
 onUnmounted(() => {
   console.log('onUnmounted')
 })
+
+// ─── Coupon & Payment Closed-Loop Pipeline ────────────────────
+const toast = reactive({
+  show: false,
+  message: ''
+})
+
+const payState = reactive({
+  isPaying: false,
+  isSuccess: false,
+  orderId: ''
+})
+
+function triggerToast(msg: string) {
+  toast.message = msg
+  toast.show = true
+  setTimeout(() => {
+    toast.show = false
+  }, 2500)
+}
+
+function handlePurchase() {
+  // 1. Trigger "领券成功" (coupon collection success) toast
+  const savedAmount = parseFloat(state.detail.price || '0') - parseFloat(state.detail.real_price || '0')
+  const couponMsg = savedAmount > 0 
+    ? `已自动领券购买，立减 ¥${savedAmount.toFixed(0)}元！`
+    : '已自动领券购买，享受极速下单！'
+  
+  triggerToast(couponMsg)
+
+  // 2. Open payment processing overlay after a tiny offset
+  setTimeout(() => {
+    payState.isPaying = true
+    payState.isSuccess = false
+    payState.orderId = 'DD' + Date.now().toString().slice(-12)
+
+    // 3. After 1.8 seconds, complete payment and show order success
+    setTimeout(() => {
+      payState.isPaying = false
+      payState.isSuccess = true
+    }, 1800)
+  }, 800)
+}
+
+function closeSuccess(goHome: boolean) {
+  payState.isSuccess = false
+  if (goHome) {
+    // Route back to the main debate decision page (localhost:5000) to close the loop!
+    window.location.href = 'http://localhost:5000'
+  }
+}
 </script>
 
 <style scoped lang="less">
@@ -1209,6 +1318,242 @@ onUnmounted(() => {
         }
       }
     }
+  }
+
+  // ─── Coupon & Payment Closed-Loop Pipeline Styles ────────────────────
+  .custom-toast {
+    position: fixed;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.85);
+    color: white;
+    padding: 10rem 18rem;
+    border-radius: 99rem;
+    font-size: 13rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 6rem;
+    z-index: 10000;
+    box-shadow: 0 4rem 12rem rgba(0, 0, 0, 0.25);
+    white-space: nowrap;
+
+    .toast-icon {
+      font-size: 18rem;
+      color: #4caf50;
+    }
+  }
+
+  .fullscreen-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    padding: 20rem;
+    box-sizing: border-box;
+
+    .overlay-card {
+      width: 90%;
+      max-width: 320rem;
+      background: rgba(255, 255, 255, 0.95);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      border-radius: 24rem;
+      box-shadow: 0 12rem 36rem rgba(0, 0, 0, 0.15);
+      padding: 26rem 20rem;
+      box-sizing: border-box;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    &.payment-processing {
+      .spinner-box {
+        margin-bottom: 18rem;
+        
+        .premium-spinner {
+          width: 44rem;
+          height: 44rem;
+          border: 4rem solid rgba(254, 44, 85, 0.1);
+          border-top: 4rem solid #fe2c55;
+          border-radius: 50%;
+          animation: spin 1s linear infinite;
+        }
+      }
+
+      .status-title {
+        font-size: 16rem;
+        font-weight: 800;
+        color: #1a1a1a;
+        margin-bottom: 6rem;
+        letter-spacing: 0.5px;
+      }
+
+      .status-subtitle {
+        font-size: 12rem;
+        color: #757575;
+        line-height: 1.4;
+      }
+    }
+
+    &.payment-success {
+      .success-icon-wrap {
+        margin-bottom: 16rem;
+        
+        .success-icon {
+          font-size: 52rem;
+          color: #22c55e;
+          animation: scaleUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+      }
+
+      .success-title {
+        font-size: 19rem;
+        font-weight: 900;
+        color: #111;
+        margin-bottom: 6rem;
+      }
+
+      .success-subtitle {
+        font-size: 12rem;
+        color: #666;
+        line-height: 1.4;
+        margin-bottom: 20rem;
+      }
+
+      .receipt-details {
+        width: 100%;
+        background: #f7f7f9;
+        border-radius: 14rem;
+        padding: 14rem 12rem;
+        margin-bottom: 22rem;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        gap: 10rem;
+
+        .receipt-row {
+          display: flex;
+          justify-content: space-between;
+          font-size: 12rem;
+          color: #71717a;
+
+          .val {
+            color: #18181b;
+            font-weight: 600;
+            text-align: right;
+            max-width: 70%;
+          }
+
+          .font-mono {
+            font-family: monospace;
+            font-size: 11rem;
+            letter-spacing: 0.5px;
+          }
+
+          .truncate-2 {
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+
+          .line-through {
+            text-decoration: line-through;
+            opacity: 0.6;
+          }
+
+          &.highlight {
+            border-top: 1px dashed rgba(0, 0, 0, 0.08);
+            padding-top: 10rem;
+            margin-top: 2rem;
+
+            .label {
+              color: #fe2c55;
+              font-weight: 700;
+            }
+
+            .val.price {
+              color: #fe2c55;
+              font-size: 15rem;
+              font-weight: 900;
+            }
+          }
+        }
+      }
+
+      .success-actions {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 8rem;
+
+        .btn-action {
+          width: 100%;
+          padding: 12rem;
+          border-radius: 12rem;
+          font-size: 14rem;
+          font-weight: bold;
+          border: none;
+          cursor: pointer;
+          transition: all 0.2s;
+
+          &.primary {
+            background: #fe2c55;
+            color: white;
+            box-shadow: 0 4rem 10rem rgba(254, 44, 85, 0.2);
+
+            &:hover {
+              background: darken(#fe2c55, 5%);
+              transform: translateY(-1rem);
+            }
+          }
+
+          &.secondary {
+            background: #f4f4f5;
+            color: #27272a;
+
+            &:hover {
+              background: #e4e4e7;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .fade-enter-active,
+  .fade-leave-active {
+    transition: opacity 0.3s ease;
+  }
+  .fade-enter-from,
+  .fade-leave-to {
+    opacity: 0;
+  }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes scaleUp {
+  from {
+    transform: scale(0.6);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
   }
 }
 </style>
