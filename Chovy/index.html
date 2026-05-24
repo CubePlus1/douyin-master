@@ -279,40 +279,55 @@
       <!-- View: Profile -->
       <div class="view" id="view-my">
         <div class="view-inner">
-          <div class="profile-header">
-            <div class="profile-avatar-wrap"><span class="material-icons-outlined">person</span></div>
-            <h2 class="profile-username">抖音极简生活家</h2>
-            <p class="profile-id">ID: daodun_user</p>
-            <div class="tag-cloud" id="profileTagCloud">
-              <!-- Personalized Tags like "成分挑剔官" -->
+          <div class="profile-card">
+            <div class="profile-header">
+              <div class="profile-avatar-wrap">
+                <span class="material-icons-outlined">psychology</span>
+              </div>
+              <h2 class="profile-username">DAODUN 决策先锋</h2>
+              <p class="profile-id">ID: daodun_expert</p>
+              <div class="tag-cloud" id="profileTagCloud">
+                <!-- Personalized Tags like "理性决策官" -->
+              </div>
+              <div class="profile-stats">
+                <div class="profile-stat">
+                  <div class="profile-stat-num" id="statSessions">0</div>
+                  <div class="profile-stat-label">深度对决</div>
+                </div>
+                <div class="profile-stat">
+                  <div class="profile-stat-num" id="statChoices">0</div>
+                  <div class="profile-stat-label">决策样本</div>
+                </div>
+                <div class="profile-stat">
+                  <div class="profile-stat-num" id="statChampions">0</div>
+                  <div class="profile-stat-label">首选优选</div>
+                </div>
+              </div>
             </div>
-            <div class="profile-stats">
-              <div class="profile-stat">
-                <div class="profile-stat-num" id="statSessions">0</div>
-                <div class="profile-stat-label">会话</div>
-              </div>
-              <div class="profile-stat">
-                <div class="profile-stat-num" id="statChoices">0</div>
-                <div class="profile-stat-label">选择</div>
-              </div>
-              <div class="profile-stat">
-                <div class="profile-stat-num" id="statChampions">0</div>
-                <div class="profile-stat-label">冠军</div>
-              </div>
+          </div>
+
+          <!-- Radar Chart Section -->
+          <div class="radar-card">
+            <div class="radar-header">
+              <span class="material-icons-outlined" style="font-size: 16px; color: var(--accent-crimson);">hub</span>
+              <span class="radar-title">AI 认知决策星图</span>
+            </div>
+            <div class="radar-chart-wrapper">
+              <div id="radarChartContainer"></div>
             </div>
           </div>
 
           <!-- AI Personal Persona / Insight -->
           <div class="ai-insight-card" id="aiInsightCard">
             <div class="ai-insight-title">
-              <span class="material-icons-outlined" style="font-size: 15px;">psychology</span>
-              AI 专属优选画像建议
+              <span class="material-icons-outlined" style="font-size: 15px;">insights</span>
+              AI 用户画像深度洞察
             </div>
-            <p class="ai-insight-content" id="aiInsightContent">正在汇总分析您的购买和偏好特质，请先进行几轮产品对比分析...</p>
+            <p class="ai-insight-content" id="aiInsightContent">正在汇总分析您的决策与偏好特质，请先进行几轮产品对比分析...</p>
           </div>
 
           <div class="prefs-section">
-            <h3 class="section-heading">偏好分析</h3>
+            <h3 class="section-heading">多维画像偏好</h3>
             <div class="prefs-grid" id="prefsGrid">
               <!-- Preferences rendered by JS -->
             </div>
