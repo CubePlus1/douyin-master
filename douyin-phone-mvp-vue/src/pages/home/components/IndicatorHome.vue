@@ -45,6 +45,7 @@ import bus from '../../../utils/bus'
 import { mapState } from 'pinia'
 import { useBaseStore } from '@/store/pinia'
 import { _css } from '@/utils/dom'
+import { getChovyUrl } from '@/config'
 
 export default {
   name: 'IndicatorHome',
@@ -152,7 +153,7 @@ export default {
 
   methods: {
     goSearch() {
-      window.location.href = 'http://localhost:5000/search_index.html'
+      window.location.href = getChovyUrl('search_index.html')
     },
     change(index) {
       this.$emit('update:index', index)

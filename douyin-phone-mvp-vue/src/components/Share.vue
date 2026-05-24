@@ -168,6 +168,7 @@
 import FromBottomDialog from './dialog/FromBottomDialog'
 import { useRouter } from 'vue-router'
 import { useBaseStore } from '@/store/pinia'
+import { getChovyUrl } from '@/config'
 import { _checkImgUrl, _copy, _hideLoading, _no, _notice, _showLoading, _sleep } from '@/utils'
 
 defineOptions({
@@ -228,7 +229,7 @@ function openEntry() {
   closeShare()
   emit('update:modelValue', false)
   setTimeout(() => {
-    window.location.href = 'http://localhost:5000'
+    window.location.href = getChovyUrl()
   }, 180)
 }
 

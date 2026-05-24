@@ -92,6 +92,7 @@ import {
   _sleep,
   _stopPropagation
 } from '@/utils'
+import { getChovyUrl } from '@/config'
 // import DouyinCode from "./DouyinCode";
 
 export default {
@@ -297,7 +298,7 @@ export default {
     goDebate() {
       this.closeShare()
       setTimeout(() => {
-        window.location.href = 'http://localhost:5000'
+        window.location.href = getChovyUrl()
       }, 180)
     },
     toggleCall(item) {

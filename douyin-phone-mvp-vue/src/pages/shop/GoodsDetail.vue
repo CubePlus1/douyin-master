@@ -423,6 +423,7 @@ import { recommendedShop } from '@/api/user'
 import WaterfallList from '@/components/WaterfallList.vue'
 import ScrollList from '@/components/ScrollList.vue'
 import { useRouter } from 'vue-router'
+import { getChovyUrl } from '@/config'
 
 defineOptions({
   name: 'GoodsDetail'
@@ -437,7 +438,7 @@ let header = ref()
 let headerShadow = ref()
 
 function goDebate() {
-  window.location.href = 'http://localhost:5000'
+  window.location.href = getChovyUrl()
 }
 
 function scroll() {
@@ -548,8 +549,7 @@ function handlePurchase() {
 function closeSuccess(goHome: boolean) {
   payState.isSuccess = false
   if (goHome) {
-    // Route back to the main debate decision page (localhost:5000) to close the loop!
-    window.location.href = 'http://localhost:5000'
+    window.location.href = getChovyUrl()
   }
 }
 </script>
